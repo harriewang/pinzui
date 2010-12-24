@@ -1,0 +1,99 @@
+{template "header.htm"}
+<!--{if ($q)}-->
+<table id="columns">
+<tr>
+<td id="mainhome">
+    <div id="infohead">
+        <div style="height:140px">
+            <h2>一起来评论话题：#{$q}#</h2>
+            <textarea id="contentbox" class="input_text headtextarea" onkeydown="javascript:return ctrlEnter(event);">#{$q}#</textarea>
+            <div id="emotion1"></div>
+            <div class="sendbox">
+            <div id="uploadbox">
+                <div class="topics"><a href="javascript:void(0);" onclick="return rtopic()">写话题</a></div>
+                <div class="sharephoto">
+                <div id="loadform" style="display:block">
+                    <a href="javascript:void(0);" style="position:absolute;">传照片</a>
+                    <form target="imageUpload" method="post" enctype="multipart/form-data" action="{$webaddr}/{$my[user_name]}/profile" id="upform">
+                    <input type="hidden" name="action" value="uploadphoto">
+                    <input type="file" onchange="uploadpic(this.value)" class="uploadbtn" size="1" name="photo" title="支持jpg、jpeg、gif、png格式，文件小于2M"/>
+                    </form>
+                </div>
+                <div id="priviewbtn"></div>
+                <span id="uploading"><img src='{$webaddr}/images/default/spinner.gif'> 上传中 <a href='##' onclick='cencelUpload();'>[取消]</a></span>
+                <div id="priviewpoic"></div>
+                </div>
+                <iframe style="display:none;" src="about:blank" name="imageUpload" id="imageUpload"></iframe>
+                <span id="morecontent" style="display:none;"></span>
+            </div>
+            <div class="fright">
+                <div class="sendtip">
+                    <span class="sendsp">还能输入<span id="nums">140</span>字</span>
+                </div>
+                <a href="javascript:void(0);" onclick="showemotion('emotion1','contentbox')"><img src="{$webaddr}/images/default/facelist.gif"></a>
+                <input type="hidden" name="action" value="msgsend" />
+                <input type="button" class="sendbutton" onclick="sendTalk('{$q}')" value="" title="按Ctrl+Enter键发送消息"/>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearline"></div>
+    <div id="content" style="padding:0 10px 15px 20px">
+    <div class="searchtopic">
+        <div class="myhome" style="float:left">话题评论</div>
+        <div style="float:right"><a href="{$webaddr}/keywords/{$q}">点击刷新</a></div>
+    </div>
+    <div id="stream" class="message">
+            <ol class="wa">
+            <!--{if ($searchnum>0)}-->
+                <!--{loop $content $key $val}-->
+                {echo loadoneli($val[content_id],$val[user_name],$val[user_id],$val[user_nickname],$val[user_head],$val[content_body],$val[posttime],$val[type],$val[zftimes],$val[replytimes],0,$val[status_id],$val[status_uname],$val[status_unickname]);}
+                <!--{/loop}-->
+            <!--{else}-->
+                <div style="margin-top:10px;text-align:center">此话题暂没有人发表，您可以创建此话题...</div>
+            <!--{/if}-->
+            </ol>				
+        </div>
+        <!--{if ($searchnum>5)}-->
+        <a class="paginatortop" href="#"><img src="{$webaddr}/images/default/top.png"></a>
+        <!--{/if}-->
+        <ul class="paginator">
+            <!--{if ($page>1)}-->
+                <li><a href='{$webaddr}/keywords/$q/p.1' title='第一页' >第一页</a></li>
+            <!--{/if}-->
+            <!--{if ($page>1)}-->
+                <li><a href='{$webaddr}/keywords/$q/p.{echo ($page-1)}' title='上一页' >上一页</a></li>
+            <!--{/if}-->
+            <!--{if ($searchnum==$index_num)}-->
+                <li><a href='{$webaddr}/keywords/$q/p.{echo ($page+1)}' title='下一页' >下一页</a></li>
+            <!--{/if}-->
+        </ul>
+    </div>
+</td>
+<td id="sidebar">
+    <div class="sect first-sect">
+        <a href="$webaddr/keywords" style="float:right">更多话题>></a>
+        <h2>热门话题</h2>			
+        <ul class="tlist">{$topics}</ul>
+    </div>
+    <div class="sect">
+        <h2>热门搜索</h2>			
+        <ul class="tlist">{$searchs}</ul>
+    </div>
+</td></tr>
+</table>
+<!--{else}-->
+<div class="keywordbox">
+    <h3>最近热门话题</h3>
+    <div class="info">
+        在您发表微博的时候，系统会自动将两个#之间的文字作为本条微博的话题标签，比如#意见反馈#，那么所有包括<a href="{$webaddr}/keywords/意见反馈">#意见反馈#</a>的话题就都聚合在一个页面了。
+    </div>
+    <div class="keys">
+        <!--{loop $topiclist $key $val}-->
+            <div class="keylist"><a href="{$webaddr}/keywords/{$val[topic]}"><font size="2">$val[topic]</font></a>($val[num])</div>
+        <!--{/loop}-->
+        <div class="clearline"></div>
+    </div>
+</div>
+<!--{/if}-->
+{template "foot.htm"}

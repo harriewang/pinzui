@@ -1,0 +1,25 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<div class="title"><h3>词语过滤</h3></div>
+<form method="post" action="replace.php">
+    <table border="0" width="100%">
+        <tr height="35px">
+            <td width="80"><p align="right">过滤内容：</td>
+            <td><textarea rows="7" name="replace" cols="50">{$replace}</textarea></td>
+        </tr>
+        <tr height="35px">
+            <td>&nbsp;</td>
+            <td><font color="#8e8e8e">输入的词语请用|隔开，例如：美国|英国.</font></td>
+        </tr>
+        <tr height="35px">
+            <td>&nbsp;</td>
+            <td><input type="hidden" name="action" value="replace" /><input type="submit" value="保存设置" /></td>
+        </tr>
+    </table>
+</form>
+</div>
+</div>
+</div>
+{template "foot.htm"}

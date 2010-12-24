@@ -1,0 +1,16 @@
+body,ul,ol,form{margin:0 0;padding:0 0;font:normal 12px Arial, Helvetica;line-height:150%}
+ul,ol,li{list-style:none}
+h2,.s{border-bottom:1px solid #ccc}
+h1,h2,h3,h6,div,li,p{margin:0 0;padding:2px 2px;font-size:12px}
+h1{background:#8FE1FF}
+h2{background:#d2edf6}
+h6{background:#fffcaa;border-bottom:1px solid #ffed00}
+a {color:#06c; text-decoration:underline}
+a:hover {text-decoration:none}
+.page {margin-top:5px}
+.showmag {margin:10px 0 10px 0}
+.n{border:1px solid #ffed00;background:#fffcaa}
+.t,.a,.stamp,.stamp a,#ft{color:#999}
+img {border:0; vertical-align:middle}
+.bottomline{border-top:1px solid #8FE1FF;margin-top:5px;padding-top:5px;padding-bottom:10px}
+.emo {width:20px;height:20px}

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="keywords" content="{$seokey}" />
+<meta name="description" content="{$description}" />
+<title><!--{if ($web_name3)}-->{$web_name3} - <!--{/if}-->{$webn1}<!--{if ($webn2)}--> - {$webn2}<!--{/if}--></title>
+<link rel="shortcut icon" href="{$webaddr}/images/favicon.ico" />
+<script type="text/javascript">var etuser='{"webaddr":"{$webaddr}","setok":"{$setok}","my_uid":"{$my[user_id]}","user_id":"{echo $user[user_id]?$user[user_id]:$my[user_id]}","user_name":"{echo $user[user_name]?$user[user_name]:$my[user_name]}","nickname":"{echo $user[nickname]?$user[nickname]:$my[nickname]}"}';</script>
+<script type="text/javascript" src="{$webaddr}/include/javascript/jquery.js"></script>
+<script type="text/javascript" src="{$webaddr}/include/javascript/easytalk.js?v=9"></script>
+<script type="text/javascript" src="{$webaddr}/include/javascript/ye_dialog.js"></script>
+<script type="text/javascript" src="{$webaddr}/include/javascript/highslide/highslide.js"></script>
+<link rel="stylesheet" type="text/css" href="{$webaddr}/include/javascript/highslide/highslide.css" />
+<script type="text/javascript" src="{$webaddr}/include/javascript/media.js"></script>
+<link rel="stylesheet" type="text/css" href="{$webaddr}/templates/cache/style.css" />
+<script type="text/javascript">hs.graphicsDir=webaddr+'/include/javascript/highslide/graphics/';hs.align='center';hs.transitions=['expand','crossfade'];hs.outlineType='rounded-white';hs.wrapperClassName='controls-in-heading';hs.fadeInOut=true;if(hs.addSlideshow)hs.addSlideshow({interval:5000,repeat:false,useControls:true,fixedControls:false,overlayOptions:{opacity:1,position:'top right',hideOnMouseOut: false}});</script>
+<style type="text/css">
+<!--{if (($my[user_id] && $user[user_id]==$my[user_id]) || (!$user[user_id] && $my[user_id]))}-->
+    body {<!--{if ($my[theme_bgcolor])}-->background:$my[theme_bgcolor]<!--{/if}-->
+    <!--{if ($my[theme_bgurl])}-->
+        <!--{if ($my[theme_pictype]=="repeat")}-->
+             url({$webaddr}/{$my[theme_bgurl]}/themebg.jpg) repeat left top
+        <!--{elseif ($my[theme_pictype]=="center")}-->
+            url({$webaddr}/{$my[theme_bgurl]}/themebg.jpg) no-repeat center top;background-attachment: fixed
+        <!--{elseif ($my[theme_pictype]=="left")}-->
+            url({$webaddr}/{$my[theme_bgurl]}/themebg.jpg) no-repeat left top; background-attachment: fixed
+        <!--{/if}-->
+    <!--{/if}-->
+    <!--{if ($my[theme_text])}-->;color:$my[theme_text]<!--{/if}-->}
+    <!--{if ($my[theme_link])}-->
+        a {color:$my[theme_link]}
+        a:hover {text-decoration:underline;}
+        #navigation li a:hover { background:$my[theme_link];color:#ffffff }
+        #navigation .selected a { background:$my[theme_link];color:#ffffff }
+        .light .stamp a { color:$my[theme_link]; border-color:$my[theme_link];}
+        #sidebar a:hover {color:$my[theme_link]; border-color:$my[theme_link];}
+        a:hover .label { border-bottom:1px solid $my[theme_link];}
+    <!--{/if}-->
+    <!--{if ($my[theme_sidebar])}-->#sidebar {background:$my[theme_sidebar]}<!--{/if}-->
+    <!--{if ($my[theme_sidebox])}-->#sidebar {border-color:$my[theme_sidebox]}<!--{/if}-->
+<!--{elseif ($user[user_id])}-->
+    body {<!--{if ($user[theme_bgcolor])}-->background:$user[theme_bgcolor]<!--{/if}-->
+    <!--{if ($user[theme_bgurl])}-->
+        <!--{if ($user[theme_pictype]=="repeat")}-->
+             url({$webaddr}/{$user[theme_bgurl]}/themebg.jpg) repeat left top
+        <!--{elseif ($user[theme_pictype]=="center")}-->
+            url({$webaddr}/{$user[theme_bgurl]}/themebg.jpg) no-repeat center top;background-attachment: fixed
+        <!--{elseif ($user[theme_pictype]=="left")}--> 
+            url({$webaddr}/{$user[theme_bgurl]}/themebg.jpg) no-repeat left top; background-attachment: fixed
+        <!--{/if}-->
+    <!--{/if}-->
+    <!--{if ($user[theme_text])}-->;color:$user[theme_text]<!--{/if}-->}
+    <!--{if ($user[theme_link])}-->
+        a {color:$user[theme_link]}
+        a:hover {text-decoration:underline;}
+        #navigation li a:hover { background:$user[theme_link];color:#ffffff }
+        #navigation .selected a { background:$user[theme_link];color:#ffffff }
+        .light .stamp a { color:$user[theme_link]; border-color:$user[theme_link];}
+        #sidebar a:hover {color:$user[theme_link]; border-color:$user[theme_link];}
+        a:hover .label { border-bottom:1px solid $user[theme_link];}
+    <!--{/if}-->
+    <!--{if ($user[theme_sidebar])}-->#sidebar {background:$user[theme_sidebar]}<!--{/if}-->
+    <!--{if ($user[theme_sidebox])}-->#sidebar {border-color:$user[theme_sidebox]}<!--{/if}-->
+<!--{/if}-->
+</style>
+</head>
+          
+<body>
+<div id="navigation"></div>
+<div id="navigationT">
+<ul>
+<!--{if ($my[user_id])}-->
+    <li <!--{if ($menu=='index')}-->class="selected"<!--{/if}-->><a href="{$webaddr}/index">微博广场</a> | </li>
+    <li <!--{if ($menu=='profile')}-->class="selected"<!--{/if}-->><a href="{$webaddr}/{$my[user_name]}/profile">我的首页</a> | </li>
+    <li <!--{if ($menu=='home')}-->class="selected"<!--{/if}-->><a href="{$webaddr}/{$my[user_name]}">我的微博</a> | </li>
+    <li <!--{if ($menu=='finder')}-->class="selected"<!--{/if}-->><a href="{$webaddr}/op/finder">找朋友</a> | </li>
+    <li <!--{if ($menu=='privatemsg')}-->class="selected"<!--{/if}-->><a href="{$webaddr}/op/privatemsg"><span id="msgtip"><!--{if ($my[priread]!=0)}--><span class="new-msg-tips"></span><span class="new-msg-tips2">{$my[priread]}条未读私信</span><!--{/if}--></span>私信</a></li>
+    <li style="float:right" id="searchr">
+    <form action="{$webaddr}/search" method="get">
+    <input type="text" id="searchr-input" name="q" />
+    <input type="hidden" name="act" value="search" />
+    <input type="submit" id="searchr-submit" value="搜索" />
+    </form>
+    </li>
+    <li style="float:right"><a href="{$webaddr}/op/login&act=logout">退出</a></li>
+    <li style="float:right" <!--{if ($menu=='theme')}-->class="selected"<!--{/if}-->><a href="{$webaddr}/op/theme">模板</a> | </li>
+    <li style="float:right" <!--{if ($menu=='setting')}-->class="selected"<!--{/if}-->><a href="{$webaddr}/op/setting">设置</a> | </li>
+    <li style="float:right"><a href="http://www.douban.com/group/pinzui/" target="_blank">豆瓣小组</a> | </li>
+<!--{else}-->
+    <li><a href="{$webaddr}/index">微博广场</a> | </li>
+    <li><a href="http://m.pinzui.com">手机版</a>|</li>
+    <li style="float:right"><a href="{$webaddr}/op/register">注册</a></li>
+    <li style="float:right"><a href="{$webaddr}/op/login">登录</a> | </li>
+    <li style="float:right"><a href="http://www.douban.com/group/pinzui/" target="_blank">豆瓣小组</a> | </li>
+<!--{/if}-->
+</ul>
+</div>
+<div id="container" class="newlook">
+<div id="header">
+    <h1><a href="{$webaddr}/index"><img src="{$webaddr}/images/default/logo.png?v=1" id="headerlogo" alt="贫嘴"/></a></h1>
+    <div style="float:right;margin-top:23px">
+        <!--{if ($my[replyread]!=0)}--><a id="newreply" href="{$webaddr}/{$my[user_name]}/profile/replies"><img src="{$webaddr}/images/default/laba.gif"> {$my[replyread]}条新回复</a>&nbsp;&nbsp;<!--{/if}-->
+        <a href="{$webaddr}/op/top"><img src="{$webaddr}/images/default/topbang.gif"> 达人排行</a>&nbsp;&nbsp;
+        <a href="{$webaddr}/op/finder&oc=invite"><img src="{$webaddr}/images/default/invite.gif"> 邀请好友</a>
+    </div>
+</div>
+
+<!--{if ($p1)}--><div class="ads1"><!--{loop $p1 $key $val}--><div style="margin-bottom:5px">{echo base64_decode($val)}</div><!--{/loop}--></div><!--{/if}-->

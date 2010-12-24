@@ -1,0 +1,32 @@
+{template "header.htm"}
+<table id="columns">
+<tr>
+<td id="main">
+    <h2>绑定手机</h2>
+    <div class="mailauthbox">
+
+		<p>绑定手机插件暂时不可用，如需使用，请联系QQ：290615101购买，不使用到后台关闭改功能</p>	
+
+    </div>
+</td>
+<td id="sidebar">
+    <h2>--设置中心菜单--</h2>
+    <div class="stabs">
+	<ul>
+		<li><a href="{$webaddr}/op/setting">基本信息设置</a></li>
+		<li><a href="{$webaddr}/op/account">修改密码</a></li>
+        <li><a href="{$webaddr}/op/mailauth">邮箱验证</a></li>
+		<!--{if ($bindmobile==0)}-->
+        <li class="current"><a href="{$webaddr}/op/bindmobile">绑定手机</a></li>
+        <!--{/if}-->
+        <!--{if ($openqq==0)}-->
+        <li><a href="{$webaddr}/op/im">绑定IM</a></li>
+		<!--{/if}-->
+        <li><a href="{$webaddr}/op/theme">模板</a></li>
+        <li><a href="{$webaddr}/op/share">分享链接</a></li>
+	</ul>
+    </div>
+</td>
+</tr>
+</table>
+{template "foot.htm"}

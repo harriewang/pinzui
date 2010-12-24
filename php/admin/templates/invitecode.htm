@@ -1,0 +1,70 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<div class="title"><h3>邀请注册<input type="button" onclick="location.href='invitecode.php?act=create'" value="生成邀请码" /></h3></div>
+<!--{if ($act=='create')}-->
+<form method="POST" action="invitecode.php">
+    <table border="0" width="100%">
+        <tr height="35px">
+            <td width="80"><p align="right">生成个数：</td>
+            <td><input name="cnum" type="text" value="10"/><span class="gray">一次最多10条</span></td>
+        </tr>
+        <tr height="35px">
+            <td><p align="right">有效期：</td>
+            <td><input name="ctime" type="text" value="7"/>天<span class="gray">填写整数，填写0表示永不过期</span></td>
+        </tr>
+        <tr height="35px">
+            <td>&nbsp;</td>
+            <td><input type="hidden" name="action" value="create" /><input type="submit" value="添加" />
+            </td>
+        </tr>
+    </table>
+</form>
+<!--{/if}-->
+<input type="button" onclick="location.href='invitecode.php?op=nouserd'" value="未使用的邀请码" />
+<input type="button" onclick="location.href='invitecode.php?op=isuserd'" value="已使用的邀请码" />
+<div class="main-wraper" style="margin-top:10px;margin-bottom:10px">
+<table>
+<tr>
+    <th width="10%">ID</td>
+    <th width="30%">邀请码</td>
+    <th width="20%">有效期至</td>
+    <th width="10%">使用</td>
+    <th width="10%">操作</td>
+</tr>
+<!--{loop $ivcode $key $val}-->
+<tr>
+    <form method="post" action="invitecode.php" onsubmit="return confirm('是否要删除此条邀请码？')">
+    <td>{$val[id]}</td>
+    <td>{$val[invitecode]}</td>
+    <td>{$val[timeline]}</td>
+    <td align="center">{$val[isused]}</td>
+    <td><input type="hidden" name="action" value="del" />
+    <input type="hidden" name="codeid" value="{$val[id]}" /><center><input type="submit" value="删除"/></td>
+    </form>
+</tr>
+<!--{/loop}-->
+</table>
+</div>
+<!--{if ($pg_num>1)}-->
+<ul class="paginator">
+    <!--{if ($page!=1)}-->
+        <li><a href='invitecode.php?op=$op&page=1' title='第一页' >第一页</a></li>
+    <!--{/if}-->
+    <!--{if ($pp>0)}-->
+        <li><a href='invitecode.php?op=$op&page={echo $page-1}' title='上一页' >上一页</a></li>
+    <!--{/if}-->
+    <!--{if ($np<=$pg_num)}-->
+        <li><a href='invitecode.php?op=$op&page={echo $page+1}' title='下一页' >下一页</a></li>
+    <!--{/if}-->
+    <!--{if ($page!=$pg_num)}-->
+        <li><a href='invitecode.php?op=$op&page=$pg_num' title='最后页' >最后页</a></li>
+    <!--{/if}-->
+</ul>
+<!--{/if}-->
+<div style="clear:both"></div>
+</div>
+</div>
+</div>
+{template "foot.htm"}

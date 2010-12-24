@@ -1,0 +1,109 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<div class="title"><h3>模板添加</h3></div>
+<form action="usertemplate.php" method="post">
+<div class="main-wraper" style="margin-top:10px;margin-bottom:10px;">
+<table>
+<tr>
+    <th width="12%">背景色</td>
+    <th width="12%">文本色</td>
+    <th width="12%">链接色</td>
+    <th width="12%">侧栏色</td>
+    <th width="12%">侧边框色</td>
+    <th width="13%">背景图位置</td>
+    <th width="13%">有无背景图</td>
+    <th width="12%">添加</td>
+</tr>
+<tr>   
+    <td><input type="text" name="bgcolor" style="width:75px"></td>
+    <td><input type="text" name="textcolor" style="width:75px"></td>
+    <td><input type="text" name="linkcolor" style="width:75px"></td>
+    <td><input type="text" name="sidebar" style="width:75px"></td>
+    <td><input type="text" name="sidebox" style="width:75px"></td>
+    <td><select name="pictype" style="width:75px">
+    <option value="repeat">平铺</option>
+    <option value="center">居中</option>
+    <option value="left">左对齐</option>
+    </select></td>
+    <td><select name="isupload" style="width:75px">
+    <option value="1">有</option>
+    <option value="0">无</option>
+    </select></td> 
+    <td><input type="hidden" name="action" value="addut"><input type="submit" value="添 加"></td>
+</tr>
+</table>
+</div>
+</form>
+<!--{if ($act=="edit")}-->
+<div class="title"><h3>模板编辑（{$utid}）</h3></div>
+<form action="usertemplate.php?utid=$utid" method="post">
+<div class="main-wraper" style="margin-top:10px;margin-bottom:10px;">
+<table>
+<tr>
+    <th width="12%">背景色</td>
+    <th width="12%">文本色</td>
+    <th width="12%">链接色</td>
+    <th width="12%">侧栏色</td>
+    <th width="12%">侧边框色</td>
+    <th width="13%">背景图位置</td>
+    <th width="13%">有无背景图</td>
+    <th width="12%">编辑</td>
+</tr>
+<tr>   
+    <td><input type="text" name="bgcolor" style="width:75px" value="$edit_bgcolor"></td>
+    <td><input type="text" name="textcolor" style="width:75px" value="$edit_text"></td>
+    <td><input type="text" name="linkcolor" style="width:75px" value="$edit_link"></td>
+    <td><input type="text" name="sidebar" style="width:75px" value="$edit_sidebar"></td>
+    <td><input type="text" name="sidebox" style="width:75px" value="$edit_sidebox"></td>
+    <td><select name="pictype" style="width:75px">
+    <option value="repeat" <!--{if ($edit_pictype=="repeat")}-->selected="selected"<!--{/if}-->>平铺</option>
+    <option value="center" <!--{if ($edit_pictype=="center")}-->selected="selected"<!--{/if}-->>居中</option>
+    <option value="left" <!--{if ($edit_pictype=="left")}-->selected="selected"<!--{/if}-->>左对齐</option>
+    </select></td>
+    <td><select name="isupload" style="width:75px">
+    <option value="1" <!--{if ($edit_upload=="1")}-->selected="selected"<!--{/if}-->>有</option>
+    <option value="0" <!--{if ($edit_upload=="0")}-->selected="selected"<!--{/if}-->>无</option>
+    </select></td> 
+    <td><input type="hidden" name="action" value="edit"><input type="submit" value="编辑"><input type="button" onclick="location.href='usertemplate.php'" value="取消"></td>
+</tr>
+</table>
+</div>
+</form>
+<!--{/if}-->
+
+<div class="title"><h3>模板设置</h3></div>
+<table><tr><td>
+<!--{loop $ut $kay $val}-->
+<div style="border:1px #cccccc solid;padding:2px;width:112px;text-align:center;float:left;margin-right:15px;margin-bottom:10px">
+    <p>
+    <!--{if ($val[theme_upload]==1)}-->
+        <img src="../attachments/usertemplates/$val[ut_id]/themebg_thumb.jpg" width="112px" height="72px">
+    <!--{else}-->
+        <div style="background:{$val[theme_bgcolor]};width:112px;height:72px;"><br/>无背景</div>
+    <!--{/if}-->
+    </p>
+    <p>
+        {$val[ut_id]} | 
+        <!--{if ($val[isopen]==0)}--><a href="usertemplate.php?act=usebtn&op=open&utid=$val[ut_id]">开</a>
+        <!--{else}--><a href="usertemplate.php?act=usebtn&op=close&utid=$val[ut_id]">关</a>
+        <!--{/if}--> 
+        <!--{if ($val[ut_id]!=1)}-->
+        | <a href="##" onclick="jsop('usertemplate.php?act=del&utid=$val[ut_id]','确认删除此模板？')">删</a> | <a href="usertemplate.php?act=edit&utid=$val[ut_id]">编</a>
+        <!--{/if}-->
+    </p>
+</div>
+<!--{/loop}-->
+</td></tr>
+</table>
+<div class="title"><h3>上传模板</h3></div>
+<form action="usertemplate.php" method="post" enctype="multipart/form-data">
+选择模板压缩包：<input type="file" name="zippack" class="file_input"/>
+<input type="hidden" name="action" value="uploadtheme" />
+<input type="submit" class="formbutton" style="width:100px" value="上传模板" />
+</form>
+</div>
+</div>
+</div>
+{template "foot.htm"}

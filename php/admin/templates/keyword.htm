@@ -1,0 +1,39 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+
+<div style="float:left;width:50%">
+<div class="title"><h3>话题管理</h3></div>
+<table border="0" width="95%">
+    <!--{loop $topiclist $key $val}-->
+	<tr>
+		<td width="85%">$val[topic]($val[num])</td>
+		<td><input type="button" onclick="jsop('keyword.php?act=delkeyword&kid={$val[id]}','是否要删除此话题？')" value="删除"></td>
+	</tr>
+    <tr>
+        <td colspan="2"><div style="border-bottom:1px solid #ccc;height:1px"></div></td>
+    </tr>
+	<!--{/loop}-->
+</table>
+</div>
+
+<div style="float:left;width:50%">
+<div class="title"><h3>搜索关键词管理</h3></div>
+<table border="0" width="95%">
+    <!--{loop $searchlist $key $val}-->
+    <tr>
+		<td width="85%">$val[searchcont]($val[num])</td>
+		<td><input type="button" onclick="jsop('keyword.php?act=delsearch&sid={$val[id]}','是否要删除此关键词？')" value="删除"></td>
+	</tr>
+    <tr>
+        <td colspan="2"><div style="border-bottom:1px solid #ccc;height:1px"></div></td>
+    </tr>
+    <!--{/loop}-->
+</table>
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+</div>
+{template "foot.htm"}

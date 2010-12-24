@@ -1,0 +1,35 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<div class="title"><h3>用户举报</h3></div>
+<div class="main-wraper" style="margin-top:10px;margin-bottom:10px">
+<table>
+<tr>
+    <th width="10%">用户名</td>
+    <th width="47%">举报内容</td>
+    <th width="15%">举报分类</td>
+    <th width="18%">举报时间</td>
+    <th width="10%"> </td>
+</tr>
+<!--{loop $rept $key $val}-->
+    <tr>
+    <form method="post" action="report.php" onsubmit="return confirm('是否要删除此条举报？')">
+        <td>{$val[user_name]}</td>
+        <td>{$val[reportbody]}</td>
+        <td>{$val[reporttype]}</td>
+        <td>{$val[dateline]}</td>
+        <td><center>
+          <input type="hidden" name="action" value="del" />
+          <input type="hidden" name="rpid" value="{$val[id]}" />
+          <input type="submit" value="删除"/></center>
+        </td>
+    </form>
+    </tr>
+<!--{/loop}-->
+</table>
+</div>
+</div>
+</div>
+</div>
+{template "foot.htm"}

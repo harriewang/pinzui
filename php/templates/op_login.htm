@@ -1,0 +1,37 @@
+{template "header.htm"}
+<table id="columns">
+<tr>
+<td id="main">
+    <div id="featured">
+        <h2>登录到贫嘴</h2>
+        <form method="post" action="{$webaddr}/op/login" class="vf lf">
+        <p>
+            <label class="label_input" for="loginname">用户名或Email地址</label>
+            <input tabindex="1" type="text" id="loginname" name="loginname" class="input_text" value="" />
+        </p>
+        <p>
+            <label class="label_input" for="password">登录密码</label>
+            <input tabindex="2" type="password" id="password" name="password" class="input_text" value="" maxlength="20" />
+        </p>
+        <p>
+            <label class="label_check" for="rememberMe">
+            <input tabindex="3" type="checkbox" name="rememberMe" id="rememberMe" value="on" />&nbsp;&nbsp;下次自动登录
+            </label>
+        </p>
+        <p class="act">
+            <input type="hidden" name="action" value="login" /><input type="hidden" name="refer" value="{$prev}" />
+            <input tabindex="4" type="submit" class="formbutton" value="登录" />&nbsp;&nbsp;or&nbsp;&nbsp;<a href="{$webaddr}/op/register" >注册</a>
+        </p>
+        </form>
+    </div>
+</td>
+<td id="sidebar">
+    <div class="sect first-sect">
+        <p><h2>唠唠叨叨</h2>一句话记录生活中的喜怒哀乐</p><br/><br/><br/>
+        <p><h2>随时随地</h2>手机上网、机器人、网页等，多种渠道更新</p><br/><br/><br/>
+        <p><h2>快速分享</h2>将你的心情即时分享给好友也能随时获得好友的心情</p>
+    </div>
+</td>
+</tr>
+</table>
+{template "foot.htm"}

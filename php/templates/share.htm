@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="{$webaddr}/images/default/share.css" type="text/css" media="screen" />
+<title>分享到EsyTalk</title>
+</head>
+<body class="pu">
+<div id="container" class="np">
+<div id="main">
+    <div id="content">
+    <!--{if ($act=='login')}-->
+        <h2>登陆到贫嘴&nbsp;&nbsp;<font color="red">{$error}</font></h2>
+        <form method="post" action="share.php?$allurl" class="nf">
+            <p>
+                <label class="label_input" for="loginname">Email / 用户账户 / UID</label>
+                <input tabindex="1" type="text" id="loginname" name="loginname" class="input_text" value="" />
+            </p>
+            <p>
+                <label class="label_input" for="password">登录密码</label>
+                <input tabindex="2" type="password" id="password" name="password" class="input_text" value="" maxlength="20" /><a href="{$webaddr}/op/reset" target="_blank">忘记密码了？</a>
+            </p>
+            <p>
+                <label class="label_check" for="rememberMe">
+                <input tabindex="3" type="checkbox" name="rememberMe" id="rememberMe" value="on" />&nbsp;&nbsp;下次自动登录
+                </label>
+            </p>
+            <p class="act">
+                <input type="hidden" name="action" value="login" /><input type="hidden" name="refer" value="{$prev}" />
+                <input tabindex="4" type="submit" class="formbutton" value="登录" />&nbsp;&nbsp;or&nbsp;&nbsp;<a href="{$webaddr}/op/register" target="_blank">注册</a>
+            </p>
+        </form>
+    <!--{else}-->
+        <!--{if ($shareok==1)}-->
+             <center><br/><br/><br/><br/><b>分享成功，点击 <a href="#" onClick="self.close();return false;">关 闭</a> 此页面！</b><br/><br/><br/><br/></center>
+        <!--{else}-->
+            <h2>分享到贫嘴</h2>
+            <form method="post" action="share.php?$allurl" class="nf">
+                <p>
+                    <label class="label_input" for="title">标题</label>
+                    <input type="text" name="title" id="title" class="input_text" value="{$title}" />
+                </p>
+                <p>
+                    <label class="label_input" for="url">网址</label>
+                    <input type="text" name="url" id="url" class="input_text formdisabled" value="{$url}" readonly="readonly" />
+                </p>
+                <p>
+                    <label class="label_input" for="detail">描述</label>
+                    <textarea name="des" id="des" rows="3" cols="50" class="qs">{$des}</textarea>
+                </p>
+                <p class="act">
+                    <input type="hidden" name="action" value="share" />
+                    <input type="submit" class="formbutton" value="分享" />
+                    <input type="button" class="formbutton cancel" name="cancel" value="关闭" onClick="self.close();return false;" />
+                </p>
+            </form>
+        <!--{/if}-->
+    <!--{/if}-->
+    </div>
+</div>
+</div>
+</body>
+</html>

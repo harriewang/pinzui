@@ -1,0 +1,43 @@
+* { margin:0; padding:0; font-family:Tahoma, Helvetica, sans-serif;}
+* html * { font-family:Arial, sans-serif;}
+html { overflow-y:scroll;}
+body { background:#fff url(share_bg.gif) 0 0 repeat-x; font-size:12px; line-height:150%;}
+a { color:#06c;}
+a:hover { color:#ff7031;}
+.input_text, textarea { border:1px solid; border-color:#7c7c7c #c3c3c3 #ddd; font-size:12px; line-height:120%;}
+input{ font-size:12px; vertical-align:middle;}
+.input_text { height:15px; padding:3px 4px; line-height:15px;}
+input.formbutton { height:23px; padding:0 1.5em; border:1px solid; border-color:#66acff #094fa1 #094fa1 #66acff; background:#2680e9; color:#fff; letter-spacing:0.3em; cursor:pointer;}
+textarea { padding:4px; overflow:auto;}
+form p { margin:10px 0; line-height:23px;}
+form p.error input, form p.error textarea { border-color:red;}
+form p.error .formtip { font-weight:bold;}
+form p.inputting .formtip { color:#000;}
+form p.inputting .hint { color:#000;}
+.nf { clear:both;}
+.nf h3 { width:400px; margin:.8em 0 .5em 170px; border-bottom:1px solid #eee; font-size:13px; color:#444;}
+.nf .label_input { width:155px; margin-right:15px; float:left; text-align:right;}
+.nf .label_check { margin-left:170px; cursor:pointer;}
+.nf .input_text { width:200px;}
+.nf:after, .nf p:after { content:"."; display:block; font-size:0; line-height:0; clear:both; visibility:hidden;}
+.nf, .nf p { *zoom:1;}
+.nf ul { list-style:none;}
+.nf li { margin:.5em 0;}
+.nf p.act { margin-left:170px;}
+.nf p.note { width:400px; margin-left:170px; line-height:150%;}
+.nf p.pending { width:384px; padding:7px 5px 7px 9px; margin-left:170px; border:1px solid #ccc; background:#eee;}
+.nf span.hint { display:block; margin-left:170px; color:#666;}
+.nf span.hidden { display:none;}
+.nf p.err { color:red;}
+#container { width:775px; margin:1em auto 0;}
+#container.impact { width:550px;}
+#main { float:left; width:530px; overflow:hidden;}
+.pu #container { width:100%;}
+.pu .np #main { padding:0;}
+.np #main { clear:both; float:none; margin:0 auto; padding-top:20px;}
+span.content a.former { color:#555;}
+span.content a.former:hover { color:#ff7031;}
+#content { padding:10px; border:1px solid #89d5ef; background:#fff;}
+#content.impact { padding:0;}
+#content h2 { padding:5px 10px; border-bottom:1px solid #ccc; color:#444; font-size:15px;}
+#content.impact h2 { padding:8px 15px;}

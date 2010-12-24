@@ -1,0 +1,145 @@
+{template "header.htm"}
+<table id="columns">
+<tr>
+<td id="mainhome">
+<div id="primsghead" class="headbg" style="padding:20px">
+<div class="hometip">给 <input type="text" id="fname" class="input_text" value="请输入用户的帐号" style="color:#cccccc" onclick="this.value=''"> 发送私信</div>
+<textarea name="content" id="contentbox" class="input_text headtextarea"></textarea>
+<div id="emotion2"></div>
+<div class="sendbox">
+<div class="sendtip">
+    <h3><span style="color:#aaaaaa;font-size:16px;">您还可以输入 <span id="nums">140</span> 个字符</span></h3>
+</div>
+<div class="fright">
+    <a href="javascript:void(0);" onclick="showemotion('emotion2','contentbox')"><img src="{$webaddr}/images/default/facelist.gif"></a>
+    <input type="hidden" name="action" value="send" />
+    <input type="button" class="sendbutton" onclick="if (isfun2($('#getfrilistselect').val(),$('#contentbox').val())){sendprimsg($('#fname').val(),$('#contentbox').val())}" value=""/>
+</div>
+</div>
+<div class="clearline"></div>
+</div>
+
+<div id="homecontainer" style="padding:0 10px 15px 20px">
+<div class="tabs top10">
+<ul>
+    <!--{if ($pm=="my")}--><li class="current"><!--{else}--><li><!--{/if}--><a href="$webaddr/op/privatemsg/my">收件箱</a></li>
+    <!--{if ($pm=="send")}--><li class="current"><!--{else}--><li><!--{/if}--><a href="$webaddr/op/privatemsg/send">发件箱</a></li>
+</ul>
+</div>
+<div id="stream" class="message">
+<!--{if ($pm=="my")}-->
+    <ol class="wa">
+    <!--{if ($i>0)}-->
+        <!--{loop $mymsg $key $val}-->
+        <li class="unlight">
+        <a href="{$webaddr}/{$val[sendname]}" title="{$val[sendnickname]}" class="avatar"><img src="{$val[sendhead]}" alt="{$val[sendnickname]}" /></a>
+        <div class="content">来自<a href="{$webaddr}/{$val[sendname]}">{$val[sendnickname]}</a>: <!--{if ($val[isread]==2)}--><b>{$val[messagebody]}</b><!--{else}-->{$val[messagebody]}<!--{/if}--></div>
+        <span class="stamp">{$val[sendtime]}</span> 
+        <!--{if ($my[user_id])}-->
+        <span class="op">
+        <!--{if ($my[user_id]!=$val[senduid])}-->
+        <a class="reply" onclick="sendprimsgbox('{$val['sendname']}')" href="javascript:void(0);" title="回复{$val[sendnickname]}">回复</a>
+        <!--{/if}-->
+        <a class="delete" href="##" onclick="delmsg('{$webaddr}/op.php?op=privatemsg&act=delmsg&mid={$val[message_id]}','确实要删除此条私信吗?',this.parentNode.parentNode)">删除</a>
+        </span>
+        <!--{/if}-->
+        </li>
+        <!--{/loop}-->
+    <!--{else}-->
+        <li class="unlight">您还么有收到任何私信</li>
+    <!--{/if}-->
+    </ol>
+<!--{else}-->
+    <ol>
+    <!--{if ($i>0)}-->
+        <!--{loop $mymsg $key $val}-->
+        <li class="unlight">
+        <div class="content">发给<a href="{$webaddr}/{$val[sendtoname]}">{$val[sendtonickname]}</a>: {$val[messagebody]} <span class="stamp"><!--{if ($val[isread]==2)}-->[未读]<!--{else}-->[已读]<!--{/if}--></span></div>
+        <span class="stamp">{$val[sendtime]}</span> 
+        <!--{if ($my[user_id])}-->
+        <span class="op">
+            <!--{if ($my[user_id]!=$val[sendtouid])}-->
+            <a class="reply" onclick="sendprimsgbox('{$val['sendtoname']}')" href="javascript:void(0);" title="回复{$val[sendnickname]}">回复</a>
+            <!--{/if}-->
+            <a class="delete" href="##" onclick="delmsg('{$webaddr}/op.php?op=privatemsg&act=delmsg&mid={$val[message_id]}','确实要删除此条私信吗?',this.parentNode.parentNode)">删除</a>
+        </span>
+        <!--{/if}-->
+        </li>
+        <!--{/loop}-->
+    <!--{else}-->
+        <li class="unlight">您还么有发送任何私信</li>
+    <!--{/if}-->
+    </ol>
+<!--{/if}-->
+</div>
+<!--{if ($total>5)}-->
+<a class="paginatortop" href="#"><img src="{$webaddr}/images/default/top.png"></a>
+<!--{/if}-->
+<!--{if ($pg_num>1)}-->
+<ul class="paginator">
+    <!--{if ($page!=1)}-->
+        <li><a href='$webaddr/op/privatemsg/$pm/p.1' title='第一页' >第一页</a></li>
+    <!--{/if}-->
+    <!--{if ($page-1>0)}-->
+        <li><a href='$webaddr/op/privatemsg/$pm/p.{echo $page-1}' title='上一页' >上一页</a></li>
+    <!--{/if}-->
+    <!--{if ($page+1<=$pg_num)}-->
+        <li><a href='$webaddr/op/privatemsg/$pm/p.{echo $page+1}' title='下一页' >下一页</a></li>
+    <!--{/if}-->
+    <!--{if ($page!=$pg_num)}-->
+        <li><a href='$webaddr/op/privatemsg/$pm/p.$pg_num' title='最后页' >最后页</a></li>
+    <!--{/if}-->
+</ul>
+<!--{/if}-->
+</div>
+</td>
+<td id="sidebar">
+    <!--{if ($p3)}--><div class="ads3"><!--{loop $p3 $key $val}--><div style="margin-bottom:5px">{echo base64_decode($val)}</div><!--{/loop}--></div><!--{/if}-->
+    <div class="sect first-sect">
+        <ul><p>
+        <!--{if ($my[auth_email]==1)}-->
+        <a href="{$webaddr}/op/mailauth" title="邮箱已验证"><img src="{$webaddr}/images/default/mail.gif" /></a>&nbsp;&nbsp;
+        <!--{/if}-->
+        <!--{if ($my[gtalk] && !$my[gtalkauthcode])}-->
+        <a href="{$webaddr}/op/im" title="已绑定Gtalk"><img src="{$webaddr}/images/default/gtalk.gif" /></a>&nbsp;&nbsp;
+        <!--{/if}-->
+        </p>
+        <table border="0" width="100%">
+            <tr>
+                <td rowspan="3" width="80px"><img src="{$my[user_head]}" width="65px" height="65px" alt="{$my[nickname]}" class="imgborder"></td>
+                <td>{$my[nickname]}</td>
+            </tr>
+            <tr>
+                <td>第 {$my[user_id]} 号微客</td>
+            </tr>
+            <tr>
+                <td>微博达人：{echo $my[indextop]==1?已上榜:未上榜}</td>
+            </tr>
+        </table>
+        <!--{if ($my[user_gender] || $my[home_city] || $my[live_city] || $my[user_info])}-->
+            <!--{if ($my[user_gender])}--><p>性别：{$my[user_gender]}</p><!--{/if}-->
+            <!--{if ($my[home_city])}--><p><li>家乡：{$my[home_city]}</li></p><!--{/if}-->
+            <!--{if ($my[live_city])}--><p><li>居住：{$my[live_city]}</li></p><!--{/if}-->
+            <!--{if ($my[birthday])}--><p><li>年龄：{$my[old]}岁</li></p><!--{/if}-->
+            <!--{if ($my[user_info])}--><p><li>签名：{echo ubb($my[user_info])}</li></p><!--{/if}-->
+        <!--{/if}--> 
+        <!--{if ($my[musicaddr])}-->
+            <p><li>
+            <object id="audioplayer_32" height="17" width="200" type="application/x-shockwave-flash" data="$webaddr/images/player.swf">
+            <param name="movie" value="$webaddr/images/player.swf"/>
+            <param name="FlashVars" value="autostart=no&bg=0xCDDFF3&leftbg=0x357DCE&lefticon=0xF2F2F2&rightbg=0xF06A51&rightbghover=0xAF2910&righticon=0xF2F2F2&righticonhover=0xFFFFFF&text=0x357DCE&slider=0x357DCE&track=0xFFFFFF&border=0xFFFFFF&loader=0xAF2910&soundFile=$my[musicaddr]"/>
+            <param name="quality" value="high"/>
+            <param name="wmode" value="Transparent"/>
+            <param name="menu" value="false"/>
+            <!--{if ($my[theme_sidebar])}--><param name="bgcolor" value="$my[theme_sidebar]"/><!--{else}--><param name="bgcolor" value="#e2f2da"/><!--{/if}-->
+            </object>
+            </li></p>
+        <!--{/if}-->
+        </div>
+        </ul>
+    </div>
+    <!--{if ($p4)}--><div class="ads4"><!--{loop $p4 $key $val}--><div style="margin-top:5px">{echo base64_decode($val)}</div><!--{/loop}--></div><!--{/if}-->
+</td>
+</tr>
+</table>
+{template "foot.htm"}

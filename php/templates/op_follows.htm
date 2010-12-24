@@ -1,0 +1,136 @@
+{template "header.htm"}
+<table id="columns">
+<tr>
+<td id="mainhome">
+<div id="homecontainer" style="padding:20px">
+<div class="tabs">
+    <ul>
+        <!--{if ($act=="follow")}--><li class="current"><!--{else}--><li><!--{/if}--><a href="{$webaddr}/op/follows/$user[user_name]"><!--{if ($uid==$my[user_id])}-->我<!--{else}-->$user[nickname]<!--{/if}-->关注的人</a></li>
+        <!--{if ($act=="followme")}--><li class="current"><!--{else}--><li><!--{/if}--><a href="{$webaddr}/op/follows/$user[user_name]&act=followme"><!--{if ($uid==$my[user_id])}-->我<!--{else}-->$user[nickname]<!--{/if}-->的粉丝</a></li>
+    </ul>
+    <a href="{$webaddr}/$user_name" class="crumb">返回微博</a>
+</div>
+<!--{if ($total==0)}-->
+    <!--{if ($act=="follow")}-->
+        <div class="topbottom20"><center><!--{if ($user[user_id]==$my[user_id])}-->您<!--{else}-->$user[nickname]<!--{/if}-->还没有关注任何人！</center></div>
+    <!--{elseif ($act=="followme")}-->
+        <div class="topbottom20"><center><!--{if ($user[user_id]==$my[user_id])}-->您<!--{else}-->$user[nickname]<!--{/if}-->还没有任何粉丝！</center></div>
+    <!--{/if}-->
+<!--{else}-->
+    <div style="border-bottom:1px dashed #ddd;font-size:14px;font-weight:bold;height:25px">共 {$total} 个<!--{if ($act=="follow")}-->关注<!--{elseif ($act=="followme")}-->粉丝<!--{/if}--></div>
+    <div id="stream">
+        <ol class="wa">
+        <!--{loop $myfri $key $val}-->
+        <li class="unlight">
+            <a href="{$webaddr}/$val['usname']" title="$val['usnickname']" class="avatar"><img src="$val['ushead']" alt="$val['usnickname']" width="48px" /></a>
+            <a href="{$webaddr}/$val['usname']" class="name"><!--{if ($val['usgender']=='男')}--><img src="$webaddr/images/default/gg.gif">&nbsp;<!--{elseif ($val['usgender']=='女')}--><img src="$webaddr/images/default/mm.gif">&nbsp;<!--{/if}-->$val['usnickname']</a>&nbsp;<span style="color:#999;font-size:12px">(@$val['usname'])</span>&nbsp;<span style="color:#000;font-size:12px">$val['uslivecity']</span>
+            <!--{if ($user[user_id]==$my[user_id])}-->
+                <!--{if ($act=="follow")}-->
+                    <p class="actions">
+                    粉丝:$val['usfolme']人&nbsp;&nbsp;&nbsp;关注:$val['usfol']人&nbsp;&nbsp;&nbsp;微博:$val['usmsgnum']条
+                    <span id='followsp_{$val[usname]}' style="display:block; float:right;"><a class="bl" href="javascript:void(0);" onclick="followop('{$webaddr}/home.php?act=delfollow&user_name={$val[usname]}&rank={echo rand()}','确认要解除对 $val['usnickname'] 的关注吗？','jc','{$val[usname]}','{$val['usnickname']}')">解除关注</a></span>
+                    </p>
+                <!--{/if}-->
+                <!--{if ($act=="followme")}-->
+                    <p class="actions">
+                        粉丝:$val['usfolme']人&nbsp;&nbsp;&nbsp;关注:$val['usfol']人&nbsp;&nbsp;&nbsp;微博:$val['usmsgnum']条
+                        <span id='followsp_{$val[usname]}' style="display:block;float:right;">
+                        <!--{if ($ismyfri[$val[usid]]==1)}-->
+                        <a class="bl" href="javascript:void(0);" onclick="followop('{$webaddr}/home.php?act=delfollow&user_name={$val[usname]}&rank={echo rand()}','确认要解除对 $val['usnickname'] 的关注吗？','jc','{$val[usname]}','{$val['usnickname']}')">解除关注</a>
+                        <!--{else}-->
+                        <a class="bh" href="javascript:void(0);" onclick="followop('{$webaddr}/home.php?act=addfollow&user_name={$val[usname]}&rank={echo rand()}','','gz','{$val[usname]}','{$val['usnickname']}')">关注一下</a>
+                        <!--{/if}-->
+                        </span>
+                    </p>
+                <!--{/if}-->
+            <!--{/if}-->
+        </li>
+        <!--{/loop}-->
+        </ol>
+    </div>
+    <!--{if ($total>5)}-->
+        <a class="paginatortop" href="#"><img src="{$webaddr}/images/default/top.png"></a>
+    <!--{/if}-->
+    <!--{if ($pg_num>1)}-->
+    <ul class="paginator">
+        <!--{if ($page!=1)}-->
+            <li><a href='{$webaddr}/op/follows/$user[user_name]/p.1&act=$act' title='第一页' >第一页</a></li>
+        <!--{/if}-->
+        <!--{if ($page-1>0)}-->
+            <li><a href='{$webaddr}/op/follows/$user[user_name]/p.{echo $page-1}&act=$act' title='上一页' >上一页</a></li>
+        <!--{/if}-->
+        <!--{if ($page+1<=$pg_num)}-->
+            <li><a href='{$webaddr}/op/follows/$user[user_name]/p.{echo $page+1}&act=$act' title='下一页' >下一页</a></li>
+        <!--{/if}-->
+        <!--{if ($page!=$pg_num)}-->
+            <li><a href='{$webaddr}/op/follows/$user[user_name]/p.$pg_num&act=$act' title='最后页' >最后页</a></li>
+        <!--{/if}-->
+    </ul>
+    <!--{/if}-->
+    <div class="clearline"></div>
+<!--{/if}-->
+</div>
+</td>
+<td id="sidebar">
+     <!--{if ($p3)}--><div class="ads3"><!--{loop $p3 $key $val}--><div style="margin-bottom:5px">{echo base64_decode($val)}</div><!--{/loop}--></div><!--{/if}-->
+     <div class="sect first-sect">
+        <ul><p>
+        <!--{if ($user[auth_email]==1)}-->
+        <a href="{$webaddr}/op/mailauth" title="邮箱已验证"><img src="{$webaddr}/images/default/mail.gif" /></a>&nbsp;&nbsp;
+        <!--{/if}-->
+        <!--{if ($user[gtalk] && !$user[gtalkauthcode])}-->
+        <a href="{$webaddr}/op/im" title="已绑定Gtalk"><img src="{$webaddr}/images/default/gtalk.gif" /></a>&nbsp;&nbsp;
+        <!--{/if}-->
+        </p>
+        <table border="0" width="100%">
+            <tr>
+                <td rowspan="3" width="80px"><img src="{$user[user_head]}" width="65px" height="65px" alt="{$user[nickname]}" class="imgborder"></td>
+                <td>{$user[nickname]}</td>
+            </tr>
+            <tr>
+                <td>第 {$user[user_id]} 号微客</td>
+            </tr>
+            <tr>
+                <td>微博达人：{echo $user[indextop]==1?已上榜:未上榜}</td>
+            </tr>
+        </table>
+        <p><a href="{$webaddr}/{$user[user_name]}">{$webaddr}/{$user[user_name]}</a></p>
+        <!--{if ($user[user_gender] || $user[home_city] || $user[live_city] || $user[user_info])}-->
+            <!--{if ($user[user_gender])}--><p>性别：{$user[user_gender]}</p><!--{/if}-->
+            <!--{if ($user[home_city])}--><p><li>家乡：{$user[home_city]}</li></p><!--{/if}-->
+            <!--{if ($user[live_city])}--><p><li>居住：{$user[live_city]}</li></p><!--{/if}-->
+            <!--{if ($user[birthday])}--><p><li>年龄：{$user[old]}岁</li></p><!--{/if}-->
+            <!--{if ($user[user_info])}--><p><li>签名：{echo ubb($user[user_info])}</li></p><!--{/if}-->
+        <!--{/if}--> 
+        <!--{if ($user[musicaddr])}-->
+            <p><li>
+            <object id="audioplayer_32" height="17" width="200" type="application/x-shockwave-flash" data="$webaddr/images/player.swf">
+            <param name="movie" value="$webaddr/images/player.swf"/>
+            <param name="FlashVars" value="autostart=no&bg=0xCDDFF3&leftbg=0x357DCE&lefticon=0xF2F2F2&rightbg=0xF06A51&rightbghover=0xAF2910&righticon=0xF2F2F2&righticonhover=0xFFFFFF&text=0x357DCE&slider=0x357DCE&track=0xFFFFFF&border=0xFFFFFF&loader=0xAF2910&soundFile=$user[musicaddr]"/>
+            <param name="quality" value="high"/>
+            <param name="wmode" value="Transparent"/>
+            <param name="menu" value="false"/>
+            <!--{if ($user[theme_sidebar])}--><param name="bgcolor" value="$user[theme_sidebar]"/><!--{else}--><param name="bgcolor" value="#e2f2da"/><!--{/if}-->
+            </object>
+            </li></p>
+        <!--{/if}-->
+        </div>
+        </ul>
+    </div>
+    <ul id="user_stats">
+        <li><a href="{$webaddr}/op/follows/{$user[user_name]}"><span class="count">{$user[follow_num]}</span><span class="label">关注</span></a></li>
+        <li><a href="{$webaddr}/op/follows/{$user[user_name]}&act=followme"><span class="count">{$user[followme_num]}</span><span class="label">粉丝</span></a></li>
+        <!--{if ($profile)}-->
+        <li><a href="{$webaddr}/{$user[user_name]}"><span class="count">{$user[msg_num]}</span><span class="label">消息</span></a></li>
+        <!--{else}-->
+        <li><a href="{$webaddr}/{$user[user_name]}"><span class="count">{$user[msg_num]}</span><span class="label">消息</span></a></li>
+        <!--{/if}-->
+    </ul>
+    <div class="sect">
+        <p class="rssfeed"><a href="{$webaddr}/rss.php?id={$user[user_id]}" target="_blank" title="订阅{$user[nickname]}的消息">订阅{$user[nickname]}的消息</a></p>
+    </div>
+    <!--{if ($p4)}--><div class="ads4"><!--{loop $p4 $key $val}--><div style="margin-top:5px">{echo base64_decode($val)}</div><!--{/loop}--></div><!--{/if}-->
+</td>
+</tr>
+</table>
+{template "foot.htm"}

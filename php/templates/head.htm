@@ -1,0 +1,74 @@
+<div id="infohead">
+<!--{if (!$profile)}-->
+<div style="height:100px">
+    <div id="avatar"><img alt="{$user[nickname]}" src="{$user[user_head]}"/></div>
+    <div id="panel">
+        <span style="color:#000;font-size:18px;font-weight:bold">{$user[nickname]}</span>&nbsp;<span style="color:#ccc;font-size:12px">(@{$user[user_name]})</span>
+        <div style="font-size:12px"><a href="{$webaddr}/{$user[user_name]}">{$webaddr}/{$user[user_name]}</a></div>
+        <p class="state">
+        <!--{if ($addtime-$user[last_login]<=600)}-->
+            <!--{if ($user[isadmin]>0)}-->
+            <span class="adminico">管理员在线</span>
+            <!--{else}-->
+            <span class="uonlineico">用户在线</span>
+            <!--{/if}-->
+        <!--{else}-->
+            <span class="uofflineico">用户离线</span>
+        <!--{/if}-->
+        </p>
+        <!--{if ($user[user_id]!=$my[user_id])}-->
+        <p class="actions">
+        <span id='followsp_{$user[user_name]}'>
+        <!--{if ($isfriend==0)}-->
+        <a class="bh" href="javascript:void(0);" onclick="followop('{$webaddr}/home.php?act=addfollow&user_name={$user[user_name]}&rank={echo rand()}','','gz','{$user[user_name]}','{$user['nickname']}')">关注一下</a>
+        <!--{else}-->
+        <a class="bl" href="javascript:void(0);" onclick="followop('{$webaddr}/home.php?act=delfollow&user_name={$user[user_name]}&rank={echo rand()}','确认要解除对 $user['nickname'] 的关注吗？','jc','{$user[user_name]}','{$user['nickname']}')">解除关注</a>
+        <!--{/if}-->
+        </span>
+        <a class="bh" onclick="sendprimsgbox('{$user[user_name]}')" href="javascript:void(0);">发私信</a>
+        </p>
+        <!--{/if}-->
+    </div>
+</div>
+<!--{else}-->
+<div style="height:140px">
+    <table border="0" width="100%">
+    <tr>
+        <td width="330px" class="hometip">记录您的生活点滴</td>
+        <td width="80px"><div class="shares"><a href="javascript:void(0);" onclick="shares()">贴分享</a></div></td>
+        <td><input type="checkbox" id="privacy" value="1"> 只自己看</td>
+    <tr>
+    </table>
+    <textarea id="contentbox" class="input_text headtextarea" onkeydown="javascript:return ctrlEnter(event);"><!--{if (!$my[lastconttime])}-->#新人报到#大家好，我是新加入的成员{$my[nickname]}，欢迎大家来Follow！<!--{/if}--></textarea>
+    <div id="emotion1"></div>
+    <div class="sendbox">
+    <div id="uploadbox">
+        <div class="topics"><a href="javascript:void(0);" onclick="return rtopic()">写话题</a></div>
+        <div class="sharephoto">
+        <div id="loadform" style="display:block">
+            <a href="javascript:void(0);" style="position:absolute;">传照片</a>
+            <form target="imageUpload" method="post" enctype="multipart/form-data" action="{$webaddr}/{$my[user_name]}/profile" id="upform">
+            <input type="hidden" name="action" value="uploadphoto">
+            <input type="file" onchange="uploadpic(this.value)" class="uploadbtn" size="1" name="photo" title="支持jpg、jpeg、gif、png格式，文件小于2M"/>
+            </form>
+        </div>
+        <div id="priviewbtn"></div>
+        <span id="uploading"><img src='{$webaddr}/images/default/spinner.gif'> 上传中 <a href='##' onclick='cencelUpload();'>[取消]</a></span>
+        <div id="priviewpoic"></div>
+        </div>
+        <iframe style="display:none;" src="about:blank" name="imageUpload" id="imageUpload"></iframe>
+        <span id="morecontent" style="display:none;"></span>
+    </div>
+    <div class="fright">
+        <div class="sendtip">
+            <span class="sendsp">还能输入<span id="nums">140</span>字</span>
+        </div>
+        <a href="javascript:void(0);" onclick="showemotion('emotion1','contentbox')"><img src="{$webaddr}/images/default/facelist.gif"></a>
+        <input type="hidden" name="action" value="msgsend" />
+        <input type="button" class="sendbutton" onclick="sendTalk()" value="" title="按Ctrl+Enter键发送消息"/>
+    </div>
+    </div>
+</div>
+<!--{/if}-->
+</div>
+<div class="clearline"></div>

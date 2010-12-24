@@ -1,0 +1,130 @@
+{template "header.htm"}
+<script type="text/javascript">
+var my_theme_bgcolor="$my[theme_bgcolor]";
+var my_theme_text="$my[theme_text]";
+var my_theme_link="$my[theme_link]";
+var my_theme_sidebar="$my[theme_sidebar]";
+var my_theme_sidebox="$my[theme_sidebox]";
+var my_user_id="$my[user_id]";
+var temp_dir="default";
+var my_bgurl="$my[theme_bgurl]"
+if (!my_theme_bgcolor) {my_theme_bgcolor="#acdae5";}
+if (!my_theme_text) {my_theme_text="#222222";}
+if (!my_theme_link) {my_theme_link="#0066CC";}
+if (!my_theme_sidebar) {my_theme_sidebar="#e2f2da";}
+if (!my_theme_sidebox) {my_theme_sidebox="#b2d1a3";}
+</script>
+<script type="text/javascript" src="{$webaddr}/include/javascript/colorpicker/colorpicker.js"></script>
+<script type="text/javascript" src="{$webaddr}/include/javascript/theme.js"></script>
+<style>
+.farbtastic {position: relative;}
+.farbtastic * {position: absolute;cursor: crosshair;}
+.farbtastic, .farbtastic .wheel {width: 195px;height: 195px;}
+.farbtastic .colors, .farbtastic .overlay {top: 47px;left: 47px;width: 101px;height: 101px;}
+.farbtastic .wheel {background: url({$webaddr}/include/javascript/colorpicker/wheel.png) no-repeat;width: 195px;height: 195px;}
+.farbtastic .overlay {background: url({$webaddr}/include/javascript/colorpicker/mask.png) no-repeat;}
+.farbtastic .marker {width: 17px;height: 17px;margin: -8px 0 0 -8px;overflow: hidden; background: url({$webaddr}/include/javascript/colorpicker/marker.png) no-repeat;}
+</style>
+<table id="columns">
+<tr>
+<td id="main" style="padding-left:10px">
+<div class="settings-theme">
+    <form id="form-setting-theme" enctype="multipart/form-data" action="{$webaddr}/op/theme" method="post">
+    <h3 class="title">选择主题 &raquo;</h3>
+    <div id="settings-theme-list" class="list">
+    <!--{loop $ut $kay $val}-->
+    <a title="主题{$val[ut_id]}" href="javascript:void(0)" onclick="usertheme('$val[element]')"><!--{if ($val[theme_upload]==1)}--><img alt="" src="{$webaddr}/attachments/usertemplates/$val[ut_id]/themebg_thumb.jpg"/><!--{else}--><div style="background:{$val[theme_bgcolor]};width:112px;height:72px"></div><!--{/if}--></a>
+    <!--{/loop}-->
+    </div>
+    <h3 id="tab-bg" class="tab-bg show">更换背景图片 &raquo;</h3>
+    <h3 id="tab-color" class="tab-color show current">更换颜色 &raquo;</h3>
+    <div id="settings-background" class="background" style="display:none;">
+        <div class="upload">
+            上传背景：<input id="file" name="bgpicture" class="input_file" size="30" type="file">
+        </div>
+        <div class="images" id="themeimages">
+            <!--{if (file_exists(ET_ROOT."/".$my[theme_bgurl]."/themebg.jpg"))}-->
+            <a href="javascript:void(0);" id="setbgyes" style="background-image: url({$webaddr}/{$my[theme_bgurl]}/themebg_thumb.jpg);"></a>
+            <a href="javascript:void(0);" class="nobg" id="setbgno"><img src="{$webaddr}/images/default/theme-nobg.gif" alt="">&nbsp;<span>不要背景图片</span></a>
+            <p><label for="user-background-repeat"><input id="user-background-repeat" name="pictype" onclick='repeatclick()' type="radio" value="repeat" <!--{if ($my[theme_pictype]=="repeat")}-->checked<!--{/if}-->> 平铺背景图片</label>&nbsp;&nbsp;
+            <label for="user-background-center"><input id="user-background-center" name="pictype" onclick='centerclick()' type="radio" value="center" <!--{if ($my[theme_pictype]=="center")}-->checked<!--{/if}-->> 背景居中</label>&nbsp;&nbsp;
+            <label for="user-background-left"><input id="user-background-left" name="pictype" onclick='leftclick()' type="radio" value="left" <!--{if ($my[theme_pictype]=="left")}-->checked<!--{/if}-->> 左对齐</label></p>
+            <!--{/if}-->
+        </div>
+    </div>
+    <div id="settings-color" class="color">
+        <div id="color-inputs" class="inputs">
+            <table>
+                <tr>
+                    <td><label for="color-background">背景</label></td>
+                    <td><label for="color-text">文本</label></td>
+                </tr>
+                <tr>
+                    <td><input id="color-background" name="bg" value="" type="text"></td>
+                    <td><input id="color-text" name="text" value="" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="color-links">链接</label></td> 
+                    <td><label for="color-sidebar">侧栏</label></td> 
+                </tr>
+                <tr>
+                    <td><input id="color-links" name="links" value="" type="text"></td>
+                    <td><input id="color-sidebar" name="sidebarcl" value="" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="color-sidebox">侧边框</label></td> 
+                    <td></td> 
+                </tr>
+                <tr>
+                    <td><input id="color-sidebox" name="sidebox" value="" type="text"></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div id="colorpicker" style="margin-left:270px"></div>
+        <div style="clear:both;"></div>
+    </div>
+    <p class="act">
+        <input type="hidden" name="newbgurl" id="newbgurl" value="$my[theme_bgurl]">
+        <input type="hidden" name="action" value="theme" />
+        <input type="submit" class="formbutton" id="save" value="保存" />
+        <input type="button" class="formbutton" id="cencel" value="取消"/>
+        <input type="button" class="formbutton" onclick="jsop('{$webaddr}/op/theme&act=dltheme','是否要下载您当前的模板呢？')" value="下载当前主题"/>
+    </p>
+    </form>
+</div>
+</td>
+<td id="sidebar">
+    <h2>--侧栏预览--</h2>
+    <div id="sideview">
+    <div class="sect">
+        <ul>
+        <p>昵称：<b>{$my[nickname]}</b></p>
+        <p>身份：第 {$my[user_id]} 号微客</p>
+        </ul>
+    </div>
+    <ul id="user_stats">
+        <li><a href="{$webaddr}/op/follows/{$my[user_name]}"><span class="count">{$my[follow_num]}</span><span class="label">关注</span></a></li>
+        <li><a href="{$webaddr}/op/follows/{$my[user_name]}&act=followme"><span class="count">{$my[followme_num]}</span><span class="label">粉丝</span></a></li>
+        <li><a href="{$webaddr}/{$my[user_name]}"><span class="count">{$my[msg_num]}</span><span class="label">消息</span></a></li>
+    </ul>
+    </div>
+    <div class="stabs">
+	<ul>
+		<li><a href="{$webaddr}/op/setting">基本信息设置</a></li>
+		<li><a href="{$webaddr}/op/account">修改密码</a></li>
+        <li><a href="{$webaddr}/op/mailauth">邮箱验证</a></li>
+        <!--{if ($bindmobile==0)}-->
+        <li><a href="{$webaddr}/op/bindmobile">绑定手机</a></li>
+        <!--{/if}-->
+       <!--{if ($openqq==0)}-->
+        <li><a href="{$webaddr}/op/im">绑定IM</a></li>
+		<!--{/if}-->
+        <li class="current"><a href="{$webaddr}/op/theme">模板</a></li>
+        <li><a href="{$webaddr}/op/share">分享链接</a></li>
+	</ul>
+    </div>
+</td>
+</tr>
+</table>
+{template "foot.htm"}

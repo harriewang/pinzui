@@ -1,0 +1,75 @@
+{template "header.htm"}
+
+<div class="friends">
+<div id="stream">
+<div class="itemtitle">
+    <h1>达人排行榜</h1>
+</div>
+<table border="0" width="100%">
+    <tr>
+    <td valign="top">
+    <dl class="ranklist">
+    <dd>
+        <h3><span class="more">关注人数</span>人气排行榜</h3>
+        <ul class="top_list">
+        <!--{loop $followtop $key $val}-->
+            <!--{if ($val[i]<=3)}-->
+            <li>
+                <div class="topavatar"><a href="{$webaddr}/$val[user_name]"><img src="{$val[user_head]}"/></a></div>
+                <p><em>$val[followme_num]</em><a title="$val[nickname]" href="{$webaddr}/$val[user_name]">$val[nickname]</a></p>
+            </li>
+            <!--{else}-->
+            <li>
+                <span>$val[i]</span>
+                <em>$val[followme_num]</em>
+                <a href="{$webaddr}/$val[user_name]">$val[nickname]</a>
+            </li>
+            <!--{/if}-->
+        <!--{/loop}-->
+        </ul>
+    </dd>
+    <dd>
+        <h3><span class="more">消息数</span>原创达人榜</h3>
+        <ul class="top_list">
+        <!--{loop $msgtop $key $val}-->
+            <!--{if ($val[j]<=3)}-->
+            <li>
+                <div class="topavatar"><a href="{$webaddr}/$val[user_name]"><img src="{$val[user_head]}"/></a></div>
+                <p><em>$val[msg_num]</em><a title="$val[nickname]" href="{$webaddr}/$val[user_name]">$val[nickname]</a></p>
+            </li>
+            <!--{else}-->
+            <li>
+                <span>$val[j]</span>
+                <em>$val[msg_num]</em>
+                <a href="{$webaddr}/$val[user_name]">$val[nickname]</a>
+            </li>
+            <!--{/if}-->
+        <!--{/loop}-->
+        </ul>
+    </dd>
+    <dd>
+        <h3><span class="more">收藏数</span>收藏达人榜</h3>
+        <ul class="top_list">
+        <!--{loop $favtop $key $val}-->
+            <!--{if ($val[k]<=3)}-->
+            <li>
+                <div class="topavatar"><a href="{$webaddr}/$val[user_name]"><img src="{$val[user_head]}"/></a></div>
+                <p><em>$val[fav_num]</em><a title="$val[nickname]" href="{$webaddr}/$val[user_name]">$val[nickname]</a></p>
+            </li>
+            <!--{else}-->
+            <li>
+                <span>$val[k]</span>
+                <em>$val[fav_num]</em>
+                <a href="{$webaddr}/$val[user_name]">$val[nickname]</a>
+            </li>
+            <!--{/if}-->
+        <!--{/loop}-->
+        </ul>
+    </dd>
+    </dl>    
+    </td>
+    </tr>
+</table>
+</div>
+</div>
+{template "foot.htm"}

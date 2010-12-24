@@ -1,0 +1,44 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<div class="title"><h3>添加公告</h3></div>
+<form method="post" action="announce.php">
+    <table border="0" width="65%">
+        <tr>
+            <td width="90">公告内容：<br/>(支持HTML)</td>
+            <td><textarea rows="4" name="annbody" cols="49"></textarea></td>
+            <td><input type="hidden" name="action" value="add" /><input type="submit" value="添加公告" /></td>
+        </tr>
+    </table>
+</form>
+<div class="title"><h3>公告列表</h3></div>
+<div class="main-wraper" style="margin-top:10px;margin-bottom:10px">
+<table>
+<tr>
+    <th width="6%">ID</td>
+    <th width="74%">公告内容</td>
+    <th width="20%">编辑</td>
+</tr>
+<!--{loop $anounc $key $val}-->
+    <tr>
+    <form method="post" action="announce.php">
+        <td>{$val[id]}</td>
+        <td><center><input name="new_body" type="text" value='{$val[body]}' style="width:560px" /></center></td>
+        <input type="hidden" name="action" value="edit" />
+        <input type="hidden" name="addid" value="{$val[id]}" />
+        <td><center><input type="submit" value="修改"/>
+    </form>
+    <form method="post" action="announce.php" onsubmit="return confirm('是否要删除此条公告？')">
+          <input type="hidden" name="action" value="del" />
+          <input type="hidden" name="addid" value="{$val[id]}" />
+          <input type="submit" value="删除"/></center></td>
+    </form>
+    </tr>
+<!--{/loop}-->
+</table>
+</div>
+</div>
+</div>
+</div>
+{template "foot.htm"}

@@ -1,0 +1,58 @@
+{template "header.htm"}
+<table id="columns">
+<tr>
+<td id="main">
+    <div id="content">
+    <form id="searchpanel" action="{$webaddr}/search" method="get">
+        <p id="search-switch">
+        <strong>搜索：</strong>
+        <!--{if ($type=="s1")}--><a class="current" href="#"><!--{else}--><a href="{$webaddr}/search?act=search&q={$q}"><!--{/if}-->全站消息</a> |
+        <!--{if ($type=="s2")}--><a class="current" href="#"><!--{else}--><a href="{$webaddr}/search?act=search&t=s2&q={$q}"><!--{/if}-->我的消息</a>
+        </p>
+        <p>
+        <input type="hidden" name="act" value="search" />
+        <input type="hidden" name="t" value="$type" />
+        <input class="input_text" type="text" value="{$q}" name="q"/>
+        <input class="formbutton" type="submit" value="搜索"/>
+        </p>
+    </form>
+    <div id="stream" class="message">
+            <ol class="wa">
+            <!--{if ($searchnum>0)}-->
+                <!--{loop $content $key $val}-->
+                {echo loadoneli($val[content_id],$val[user_name],$val[user_id],$val[user_nickname],$val[user_head],$val[content_body],$val[posttime],$val[type],$val[zftimes],$val[replytimes],0,$val[status_id],$val[status_uname],$val[status_unickname]);}
+                <!--{/loop}-->
+            <!--{else}-->
+                <center>没有更多的信息可以显示...</center>
+            <!--{/if}-->
+            </ol>				
+        </div>
+        <!--{if ($searchnum>5)}-->
+        <a class="paginatortop" href="#"><img src="{$webaddr}/images/default/top.png"></a>
+        <!--{/if}-->
+        <ul class="paginator">
+            <!--{if ($page>1)}-->
+                <li><a href='{$webaddr}/search?act=$act&t=$type&q=$q&p=1' title='第一页' >第一页</a></li>
+            <!--{/if}-->
+            <!--{if ($page>1)}-->
+                <li><a href='{$webaddr}/search?act=$act&t=$type&q=$q&p={echo ($page-1)}' title='上一页' >上一页</a></li>
+            <!--{/if}-->
+            <!--{if ($searchnum==$index_num)}-->
+                <li><a href='{$webaddr}/search?act=$act&t=$type&q=$q&p={echo ($page+1)}' title='下一页' >下一页</a></li>
+            <!--{/if}-->
+        </ul>
+    </div>
+</td>
+<td id="sidebar">
+    <div class="sect first-sect">
+        <h2>热门搜索</h2>			
+        <ul class="tlist">{$searchs}</ul>
+    </div>
+    <div class="sect">
+        <a href="$webaddr/keywords" style="float:right">更多话题>></a>
+        <h2>热门话题</h2>			
+        <ul class="tlist">{$topics}</ul>
+    </div>
+</td></tr>
+</table>
+{template "foot.htm"}

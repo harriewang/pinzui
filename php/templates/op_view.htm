@@ -1,0 +1,46 @@
+{template "header.htm"}
+<div id="info" >
+<table border="0" width="100%" height="500px">
+	<tr>
+    <td valign="top" width="120px"><a href="{$webaddr}/{$data[user_name]}"><img src="{$data[user_head]}" alt="{$data[user_nickname]}" style="border:1px solid #ccc;padding:2px"/></a></td>
+    <td valign="top">
+        <!--{if ($data[privacy]==0 || $data[user_id]==$my[user_id])}-->
+            <div class="viewbox">
+                <div class="viewcontent">
+                    <span style="font-size:14px"><a href="{$webaddr}/{$data[user_name]}">{$data[user_nickname]}</a>: {$content}</span>
+                </div>
+                <div id="stream" class="message">
+                    <span class="stamp">
+                    <div style="float:left">{echo timeop($data[posttime])} 通过{$data[type]}</div>
+                    <!--{if ($my[user_id] && $data[privacy]==0)}-->
+                    <div style="float:right">
+                    <a title="回复{$data[user_nickname]}" onclick="replyajax('{$data[content_id]}')" href="javascript:void(0)">回复({$data[replytimes]})</a>&nbsp;|&nbsp;
+                    <a title="转发此消息" href="javascript:void(0)" onclick="zhuanfa('{$data[content_id]}')">转发({$data[zftimes]})</a>&nbsp;|&nbsp;
+                    <a href="javascript:void(0)" onclick="send_f('{$data[content_id]}')" title="添加到我的收藏">收藏</a>
+                    </div>
+                    <!--{/if}-->
+                    <div class="clearline"></div>
+                    </span>
+                </div>
+                <!--{if ($data[status_id])}-->
+                <span id="replyC_{$data[content_id]}" class="replyspan"></span>
+                <script type="text/javascript">getReplyContent('{$data[status_id]}','$data[content_id]');</script>
+                <!--{/if}-->
+            </div>
+
+            
+
+            <!--{if ($my[user_id] && $data[privacy]==0)}-->
+            <span id="reply_{$data[content_id]}" class="replyspan"></span>
+            <script type="text/javascript">replyajax('{$data[content_id]}')</script>
+            <!--{/if}-->
+        <!--{else}-->
+            <div class="viewcontent"><h2><a href="{$webaddr}/{$data[user_name]}">{$data[user_nickname]}</a></h2></div><br/>
+            <p>该消息为隐私消息，不能查看！</p>
+            <p><a href="{$webaddr}/{$data[user_name]}">返回 {$data[user_nickname]} 的微博</a></p>
+        <!--{/if}-->
+    </td>
+	</tr>
+</table>
+</div>
+{template "foot.htm"}

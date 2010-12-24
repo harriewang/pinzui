@@ -1,0 +1,28 @@
+{template "header.htm"}
+<div class="friends">
+<div id="stream">
+<h3>初来乍到，认识新朋友，关注一下他们</h3>
+<div id="finder_finder" style="display: block;">
+    <div id="finder_searchnick" class="finder_block">
+    <ol>
+        <form method="post" action="{$webaddr}/op/guide">
+            <!--{loop $follows $key $val}-->
+            <li class="unlight">
+            <div style="float:left;width:25px;padding-top:10px"><input type="checkbox" name="follow[]" value="$val[user_id]" checked></div>
+            <div style="float:left;width:50px;"><img src="{$val[user_head]}" alt="{$val[nickname]}" width="40px"/></div>
+            <div style="float:left;width:420px;">
+            $val[nickname]&nbsp;&nbsp;&nbsp;&nbsp;<span class="stamp">粉丝数：$val[followme_num]</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="stamp">消息数：$val[msg_num]</span><br>
+            <span style="font-size:12px">$val[lastcontent]&nbsp;&nbsp;<span class="stamp">$val[lastconttime]</span></span>
+            </div>
+            </li>
+            <!--{/loop}-->
+            <br/>
+            <input type="hidden" name="action" value="follow" />
+            <center><input type="submit" value="关注他们" class="formbutton"/></center>
+        </form>
+    </ol>
+    </div>
+</div>
+</div>
+</div>
+{template "foot.htm"}

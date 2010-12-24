@@ -1,0 +1,97 @@
+{template "header.htm"}
+<div class="friends">
+<div id="stream">
+    <div id="finder_finder" style="display: block;">
+        <div id="finder_searchnick" class="finder_block">
+            <h3>欢迎您提出宝贵的意见，我们将做的更好</h3>
+            <form method="POST" action="{$webaddr}/op/feedback" onsubmit="return checksubmit();">
+                <table border="0" width="100%">
+                    <tr height="30px">
+                        <td width="75px">反馈类型：</td>
+                        <td><select name="fbtype" id="fbtype">
+                            <option value="0" selected="selected">=请选择反馈类型=</option>
+                            <option value="1">注册问题</option>
+                            <option value="2">密码问题</option>
+                            <option value="3">登陆问题</option>
+                            <option value="4">修改昵称</option>
+                            <option value="5">错误报告</option>
+                            <option value="6">建 议</option>
+                            <option value="7">其他问题</option>
+                            </select></td>
+                    </tr>
+                    <tr height="30px">
+                        <td width="75px">您的地址：</td>
+                        <td>{echo get_ip()} （您目前所在的IP地址）</td>
+                    </tr>
+                    <tr height="80px">
+                        <td width="75px">反馈内容：</td>
+                        <td><textarea name="feedbody" id="feedbody" class="input_text" style="width:350px;height:50px"></textarea></td>
+                    </tr>
+                    <tr height="40px">
+                        <td width="75px">联系方式：</td>
+                        <td><input type="text" name="contect" id="contect" class="input_text" style="width:350px"></td>
+                    </tr>
+                </table>
+                <p>
+                    <input type="hidden" name="action" value="feedback"/>
+                    <input class="formbutton" type="submit" value="提交信息"/>
+                </p>
+            </form>
+        </div>
+        <!--{if ($my['isadmin']==1)}-->
+        <div id="finder_searchnick" class="finder_block" style="background:#ffffff">
+            <h2>共 {$i} 个反馈</h2>
+            <ol class="wa">
+            <!--{loop $feedback $key $val}-->
+                <li class="unlight">
+                    <a href="{$webaddr}/$val['fbuname']" title="$val['fbunickname']" class="avatar"><img src="$val['fbuhead']" alt="$val['fbunickname']" width="48px" /></a>
+                    <a href="{$webaddr}/$val['fbuname']" class="name">$val['fbunickname']</a>
+                    <p class="actions">问题类型：{$val['fbtype']}<br/>联系方式：{$val['fbcontect']}<br/>问题内容：{$val['fbbody']}</p>
+                    <span class="stamp">{$val[dataline]}</span> 
+                    <span class="op">
+                    <a class="reply" onclick="sendprimsgbox('{$val[fbuname]}')" href="javascript:void(0);" title="回复{$val[sendnickname]}">回复</a>
+                    <a class="delete" href="##" onclick="delmsg('{$webaddr}/op/feedback&act=del&id={$val[id]}','确实要删除此条反馈吗?',this.parentNode.parentNode)">删除</a>
+                    </span>
+                </li>
+            <!--{/loop}-->
+            </ol>
+            <!--{if ($pg_num>1)}-->
+            <ul class="paginator">
+                <!--{if ($page!=1)}-->
+                    <li><a href='{$webaddr}/op/feedback/p.1' title='第一页' >第一页</a></li>
+                <!--{/if}-->
+                <!--{if ($page-1>0)}-->
+                    <li><a href='{$webaddr}/op/feedback/p.{echo $page-1}' title='上一页' >上一页</a></li>
+                <!--{/if}-->
+                <!--{if ($page+1<=$pg_num)}-->
+                    <li><a href='{$webaddr}/op/feedback/p.{echo $page+1}' title='下一页' >下一页</a></li>
+                <!--{/if}-->
+                <!--{if ($page!=$pg_num)}-->
+                    <li><a href='{$webaddr}/op/feedback/p.$pg_num' title='最后页' >最后页</a></li>
+                <!--{/if}-->
+            </ul>
+            <div class="clearline"></div>
+            <!--{/if}-->
+        </div>
+        <!--{/if}-->
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+function checksubmit() {
+    if ($("#fbtype").val()==0) {
+        ye_msg.open('您没有选择反馈类型',1,2);
+        return false;
+    }
+    if ($("#feedbody").val()=="") {
+        ye_msg.open('反馈内容不能为空',1,2);
+        return false;
+    }
+    if ($("#contect").val()=="") {
+        ye_msg.open('您还没有填写联系方式',1,2);
+        return false;
+    }
+    return true;
+}
+</script>
+{template "foot.htm"}

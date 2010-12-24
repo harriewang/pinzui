@@ -1,0 +1,18 @@
+<!--{if ($favnum>0)}-->
+<div id="stream" class="message">
+<ol class="wa">
+    <!--{loop $favlist $key $val}-->
+    {echo loadoneli($val[content_id],$val[user_name],$val[user_id],$val[user_nickname],$val[user_head],$val[content_body],$val[posttime],$val[type],$val[zftimes],$val[replytimes],0,$val[status_id],$val[status_uname],$val[status_unickname],0,0);}
+    <!--{/loop}-->
+</ol>
+</div>
+<span id="homeload">
+<div id="indexpage" onclick="showhome('favorite','{$user[user_name]}')">显示更多</div>
+</span>
+<!--{else}-->
+<div id="stream" class="message"><ol class="wa"><li style="display:none"></li></ol></div>
+<span id="homeload">
+<div id="indexpage" onclick="showhome('favorite','{$user[user_name]}')"><font color="#999">没有更多信息可显示</font></div>
+</span>
+<!--{/if}-->
+<div class="clearline"></div>

@@ -1,0 +1,25 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<div class="title"><h3>数据备份</h3></div>
+<form method="post" action="backup.php">
+<table width="100%" border="0">
+    <tr><td width="510px">备份方式：</td><td rowspan="11" valign="top" style="padding-left:20px"><font color="red"><b>提示信息：</b></font><br/>服务器备份目录为backup<br/>对于较大的数据表，强烈建议使用分卷备份<br/>只有选择备份到服务器，才能使用分卷备份功能</td></tr>
+    <tr><td width="510px"><input type="radio" name="bfzl" value="quanbubiao" checked>备份全部数据<span class="gray">备份全部数据表中的数据到一个备份文件</span></td></tr>
+    <tr><td width="510px"><input type="radio" name="bfzl" value="danbiao">备份单张表数据<select name="tablename"><option value="">请选择</option>{$s}</select><span class="gray">备份选中数据表中的数据到单独的备份文件</span></td></tr>
+    <tr><td width="510px"><hr style="border:1px dashed; height:1px" color="#DDDDDD"></td></tr>
+    <tr><td width="510px">使用分卷备份：</td></tr>
+    <tr><td width="510px"><input type="checkbox" name="fenjuan" value="yes">分卷备份 <input name="filesize" type="text" size="10"> K</td></tr>
+    <tr><td width="510px"><hr style="border:1px dashed; height:1px" color="#DDDDDD"></td></tr>
+    <tr><td width="510px">选择目标位置：</td></tr>
+    <tr><td width="510px"><input type="radio" name="weizhi" value="server" checked>备份到服务器</td></tr><tr class="cells">
+    <td width="510px"> <input type="radio" name="weizhi" value="localpc">备份到本地</td></tr>
+    <tr><td align='center' width="510px"><input type="hidden" name="action" value="back"><input type="submit" value="备 份"></td></tr>
+</table>
+</form>
+</div>
+<br />
+</div>
+</div>
+{template "foot.htm"}

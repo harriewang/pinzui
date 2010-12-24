@@ -1,0 +1,12 @@
+#ye_dialog_overlay {
+	POSITION: absolute; HEIGHT: expression(document.documentElement.scrollHeight > document.documentElement.offsetHeight ? document.documentElement.scrollHeight : document.documentElement.offsetHeight + 'px')
+}
+#ye_dialog_loading {
+	MARGIN-TOP: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px'); POSITION: absolute
+}
+#ye_dialog_window {
+	MARGIN-TOP: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px'); POSITION: absolute
+}
+.ye_msg_window {
+	MARGIN-TOP: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px'); POSITION: absolute
+}

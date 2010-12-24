@@ -1,0 +1,54 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<div class="title"><h3>广告管理</h3></div>
+<div class="main-wraper" style="margin-top:10px;margin-bottom:10px">
+<table>
+<tr>
+    <th width="10%">ID</td>
+    <th width="55%">广告内容</td>
+    <th width="15%">位置</td>
+    <th width="20%">操作</td>
+</tr>
+<!--{loop $ads $key $val}-->
+<form action="adsadmin.php" method="post" id="{$val[ad_id]}">
+    <tr>   
+        <td>{$val[ad_id]}</td>
+        <td><textarea type="text" name="editadsbody" style="width:430px">{$val[adbody]}</textarea></td>
+        <td><select name="editposition">
+            <option <!--{if ($val[position]==0)}-->selected="selected"<!--{/if}--> value="0">不显示</option>
+            <option <!--{if ($val[position]==1)}-->selected="selected"<!--{/if}--> value="1">页头通栏</option>
+            <option <!--{if ($val[position]==2)}-->selected="selected"<!--{/if}--> value="2">页尾通栏</option>
+            <option <!--{if ($val[position]==3)}-->selected="selected"<!--{/if}--> value="3">空间边栏（上）</option>
+            <option <!--{if ($val[position]==4)}-->selected="selected"<!--{/if}--> value="4">空间边栏（下）</option>
+            </select>
+        </td>
+        <td>
+        <input type="hidden" name="action" value="edit"><input type="hidden" name="aid" value="{$val[ad_id]}">
+        <input type="submit" value="编辑">
+        <input type="button" onclick="jsop('adsadmin.php?act=del&adid={$val[ad_id]}','确认删除此广告？')" value="删除">
+        </td>
+    </tr>
+</form>
+<!--{/loop}-->
+<form action="adsadmin.php" method="post">
+    <tr>
+        <td>添加：</td>
+        <td><textarea type="text" name="addbody" style="width:430px"></textarea></td>
+        <td><select name="position">
+            <option value="0">不显示</option>
+            <option value="1">页头通栏</option>
+            <option value="2">页尾通栏</option>
+            <option value="3">空间边栏（上）</option>
+            <option value="4">空间边栏（下）</option>
+            </select></td>
+        <td><input type="hidden" name="action" value="addads"><input type="submit" value="添 加"></td>
+    </tr>
+</form>
+</table>
+</div>
+</div>
+</div>
+</div>
+{template "foot.htm"}

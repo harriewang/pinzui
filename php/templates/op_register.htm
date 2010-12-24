@@ -1,0 +1,79 @@
+{template "header.htm"}
+<table id="columns">
+<tr>
+<td id="main">
+    <div id="featured">
+        <h2>快速注册</h2>
+        <form method="post" action="##" class="vf lf">
+        <!--{if ($closereg==3)}-->
+        <div style="background:#e1e1e1;width:100%;padding:5px;border:1px solid #cccccc">管理员开启了邀请注册，您必须正确输入邀请码才能成功注册！</div>
+        <p>
+            <label class="label_input" for="invitecode">注册邀请码</label>
+            <input tabindex="1" type="text" id="invitecode" name="invitecode" class="input_text" value="" style="ime-mode:disabled"/>
+        </p>
+        <!--{/if}-->
+        <p>
+            <label class="label_input" for="username">用户帐号</label>
+            <input tabindex="2" type="text" id="username" name="username" class="input_text" value="" style="ime-mode:disabled" onpaste="return false;"/>
+        </p>
+        <p>
+            <span style="color:#999999">您的微博网址：{$webaddr}/<span id="wbadd"></span></span>
+        </p>
+        <p>
+            <label class="label_input" for="nickname">用户昵称</label>
+            <input tabindex="3" type="text" id="nickname" name="nickname" class="input_text" value="" />
+        </p>
+        <p>
+            <label class="label_input" for="mailadres">Email</label>
+            <input tabindex="4" type="text" id="mailadres" name="mailadres" class="input_text" value="" />
+        </p>
+        <p>
+            <label class="label_input" for="password1">登录密码</label>
+            <input tabindex="5" type="password" id="password1" name="password1" class="input_text" value="" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/>
+        </p>
+        <p>
+            <label class="label_input" for="password2">确认密码</label>
+            <input tabindex="6" type="password" id="password2" name="password2" class="input_text" value="" maxlength="20" style="ime-mode:disabled" onpaste="return false;"/>
+        </p>
+        <p class="act">
+            <input type="hidden" name="action" value="register" />
+            <input tabindex="7" type="button" class="formbutton" value="注册" onclick="check_register();"/>&nbsp;&nbsp;or&nbsp;&nbsp;<a href="{$webaddr}/op/login" >登录</a>
+        </p>
+        </form>
+    </div>
+</td>
+<td id="sidebar">
+    <div class="sect first-sect">
+        <p><h2>唠唠叨叨</h2>一句话记录生活中的喜怒哀乐</p><br/><br/><br/>
+        <p><h2>随时随地</h2>手机上网、机器人、网页等，多种渠道更新</p><br/><br/><br/>
+        <p><h2>快速分享</h2>将你的心情即时分享给好友也能随时获得好友的心情</p>
+    </div>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+$("#username").keyup(function(){
+    $('#username').val($('#username').val().replace("/[^a-z\d]/ig",""));
+    $('#wbadd').html($('#username').val());
+    if (CheckLen($('#username').val())>20) {
+        $('#username').val($('#username').val().slice(0,20));
+        $('#wbadd').html($('#username').val().slice(0,20));
+    }
+});
+$("#nickname").keyup(function(){
+    $('#nickname').val($.trim($('#nickname').val()));
+    if (CheckLen($('#nickname').val())>20) {
+        $('#nickname').val(countCharacters($('#nickname').val(),20));
+    }
+});
+$("#mailadres").keyup(function(){
+    $('#mailadres').val($.trim($('#mailadres').val()));
+});
+$("#password1").keyup(function() {
+    $('#password1').val($.trim($('#password1').val()));
+});
+$("#password2").keyup(function() {
+    $('#password2').val($.trim($('#password2').val()));
+});
+</script>
+{template "foot.htm"}

@@ -1,0 +1,32 @@
+php_value memory_limit 256M
+RewriteEngine On
+RewriteBase /
+
+## ET
+RewriteRule ^wap$ wap/index.php
+RewriteRule ^index$ index.php
+RewriteRule ^index/p.(.+)$ index.php?page=$1
+RewriteRule ^keywords/(.+)/p.(.+)$ keywords.php?q=$1&p=$2
+RewriteRule ^keywords/(.+)$ keywords.php?q=$1
+RewriteRule ^keywords$ keywords.php
+RewriteRule ^search$ search.php
+RewriteRule ^search/p.(.+)$ search.php?page=$1
+RewriteRule ^home/(.+)/(.+)/p.(.+)$ home.php?hm=$2&user_name=$1&page=$3
+RewriteRule ^home/(.+)/(.+)$ home.php?hm=$2&user_name=$1
+RewriteRule ^([0-9a-zA-Z]+)$ home.php?user_name=$1
+RewriteRule ^([0-9a-zA-Z]+)/all$ home.php?user_name=$1
+RewriteRule ^([0-9a-zA-Z]+)/profile$ home.php?user_name=$1&profile=1
+RewriteRule ^([0-9a-zA-Z]+)/profile/(.+)$ home.php?user_name=$1&profile=1&hms=$2
+RewriteRule ^op/feedback/p.(.+)$ op.php?op=feedback&page=$1
+RewriteRule ^op/web/(.+)$ op.php?op=web&act=$1
+RewriteRule ^op/follows/(.+)/p.(.+)$ op.php?op=follows&user_name=$1&page=$2
+RewriteRule ^op/follows/(.+)$ op.php?op=follows&user_name=$1
+RewriteRule ^op/privatemsg/my/p.([0-9]+)$ op.php?op=privatemsg&pm=my&page=$1
+RewriteRule ^op/privatemsg/send/p.([0-9]+)$ op.php?op=privatemsg&pm=send&page=$1
+RewriteRule ^op/privatemsg/my$ op.php?op=privatemsg&pm=my
+RewriteRule ^op/privatemsg/send$ op.php?op=privatemsg&pm=send
+RewriteRule ^op/view/(.+)$ op.php?op=view&id=$1
+RewriteRule ^notice/(.+)$ op.php?op=view&id=$1
+RewriteRule ^op/(.+)$ op.php?op=$1
+RewriteRule ^op$ op.php
+RewriteRule ^([0-9a-zA-Z]+).rss$ api/rss.php?user_name=$1

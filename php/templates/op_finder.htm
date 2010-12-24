@@ -1,0 +1,116 @@
+{template "header.htm"}
+<script src="{$webaddr}/include/javascript/city.js" type="text/javascript"></script>
+<div class="friends">
+<div class="tabs">
+    <ul>
+        <!--{if ($oc=="search")}--><li class="current"><!--{else}--><li><!--{/if}--><a href="{$webaddr}/op/finder&oc=search">找朋友</a></li>
+        <!--{if ($oc=="invite")}--><li class="current"><!--{else}--><li><!--{/if}--><a href="{$webaddr}/op/finder&oc=invite">邀请好友</a></li>
+    </ul>
+</div>
+<div id="stream">
+    <div id="finder_finder" style="display: block;">
+        <div id="finder_searchnick" class="finder_block">
+        <!--{if ($oc=="search")}-->
+            <h3>搜索昵称</h3>
+            <form method="GET" action="{$webaddr}/op.php">
+                <p>
+                    <input class="input_text" type="text" name="sname" value="$_GET['sname']"/>
+                    <input type="hidden" name="act" value="search"/>
+                    <input type="hidden" name="op" value="finder"/>
+                    <input class="formbutton" type="submit" value="搜索"/>
+                </p>
+                <p>
+                    家乡：<select name="homesf" id="homesf" onchange="changehomecity()">
+                    <option value="">选择省份</option><option value="江苏省">江苏省</option><option value="北京">北京</option><option value="天津">天津</option><option value="上海">上海</option><option value="重庆">重庆</option><option value="广东省">广东省</option><option value="浙江省">浙江省</option><option value="福建省">福建省</option><option value="湖南省">湖南省</option><option value="湖北省">湖北省</option><option value="山东省">山东省</option><option value="辽宁省">辽宁省</option><option value="吉林省">吉林省</option><option value="云南省">云南省</option><option value="四川省">四川省</option><option value="安徽省">安徽省</option><option value="江西省">江西省</option><option value="黑龙江省">黑龙江省</option><option value="河北省">河北省</option><option value="陕西省">陕西省</option><option value="海南省">海南省</option><option value="河南省">河南省</option><option value="山西省">山西省</option><option value="内蒙古">内蒙古</option><option value="广西">广西</option><option value="贵州省">贵州省</option><option value="宁夏">宁夏</option><option value="青海省">青海省</option><option value="新疆">新疆</option><option value="西藏">西藏</option><option value="甘肃省">甘肃省</option><option value="台湾省">台湾省</option><option value="香港">香港</option><option value="澳门">澳门</option><option value="国外">国外</option>
+                    </select>
+                    <select name="homecity" id="homecity"><option value="">选择城市</option></select>
+                    居住：<select name="livesf" id="livesf" onchange="changelivecity()">
+                    <option value="">选择省份</option><option value="江苏省">江苏省</option><option value="北京">北京</option><option value="天津">天津</option><option value="上海">上海</option><option value="重庆">重庆</option><option value="广东省">广东省</option><option value="浙江省">浙江省</option><option value="福建省">福建省</option><option value="湖南省">湖南省</option><option value="湖北省">湖北省</option><option value="山东省">山东省</option><option value="辽宁省">辽宁省</option><option value="吉林省">吉林省</option><option value="云南省">云南省</option><option value="四川省">四川省</option><option value="安徽省">安徽省</option><option value="江西省">江西省</option><option value="黑龙江省">黑龙江省</option><option value="河北省">河北省</option><option value="陕西省">陕西省</option><option value="海南省">海南省</option><option value="河南省">河南省</option><option value="山西省">山西省</option><option value="内蒙古">内蒙古</option><option value="广西">广西</option><option value="贵州省">贵州省</option><option value="宁夏">宁夏</option><option value="青海省">青海省</option><option value="新疆">新疆</option><option value="西藏">西藏</option><option value="甘肃省">甘肃省</option><option value="台湾省">台湾省</option><option value="香港">香港</option><option value="澳门">澳门</option><option value="国外">国外</option>
+                    </select>
+                    <select name="livecity" id="livecity"><option value="">选择城市</option></select>
+                    性别：<select name="gender" id="gender"><option value="">请选择</option><option value="男">男</option><option value="女">女</option></select>	
+               </p>
+            </form>
+        </div>
+        <div id="finder_searchnick" class="finder_block" style="background:#ffffff">
+           <!--{if ($act=="search")}-->
+                <!--{if ($findnum==-1)}-->
+                    <div class="topbottom20"><center>您没有输入要查找的用户名或者条件，请输入后点击“搜索”！</center></div>
+                <!--{elseif ($findnum==0)}-->
+                    <div class="topbottom20"><center>很抱歉没有找到您要找的用户！</center></div>
+                <!--{else}-->
+                <h2>以下是匹配的用户</h2>
+                <ol class="wa">
+                <!--{loop $find $key $val}-->
+                    <li class="unlight">
+                        <a href="{$webaddr}/$val['f_uname']" title="$val['f_nickname']" class="avatar"><img src="$val['f_uhead']" alt="$val['f_nickname']" width="48px" /></a>
+                        <a href="{$webaddr}/$val['f_uname']" class="name">$val['f_nickname']</a>
+                        <span class="actions">
+                        <!--{if ($val['f_uname']!=$my['user_name'])}-->
+                        <span id='followsp' style="float:right">
+                        <!--{if ($val['isfriend']==0)}-->
+                            <a class="bh" href="javascript:void(0);" onclick="followop('{$webaddr}/home.php?act=addfollow&user_name={$val['f_uname']}&rank={echo rand()}','','gz')">关注一下</a>
+                            <!--{else}-->
+                            <a class="bl" href="javascript:void(0);" onclick="followop('{$webaddr}/home.php?act=delfollow&user_name={$val['f_uname']}&rank={echo rand()}','确认要解除对 $val['f_nickname'] 的关注吗？','jc')">解除关注</a>
+                            <!--{/if}-->
+                            </span>
+                        <!--{/if}-->
+                        <a onclick="sendprimsgbox('{$val['f_uname']}')" href="javascript:void(0);" class="bh" style="float:right">发送私信</a>
+                        </span>
+                        <p class="actions">
+                        性别：{$val['f_ugender']}，家乡是：{$val['f_homepro']}，居住在：{$val['f_livepro']}
+                        </p>
+                    </li>
+                <!--{/loop}-->
+                </ol>
+                <ul class="paginator">
+                    <!--{if ($page>1)}-->
+                        <li><a href='{$webaddr}/op.php?op=finder&sname=$sname&act=search&gender=$gender&homesf=$_GET["homesf"]&homecity=$_GET["homecity"]&livesf=$_GET["livesf"]&livecity=$_GET["livecity"]&page={echo ($page-1)}' title='上一页' >上一页</a></li>
+                    <!--{/if}-->
+                    <!--{if ($findnum==10)}-->
+                        <li><a href='{$webaddr}/op.php?op=finder&sname=$sname&act=search&gender=$gender&homesf=$_GET["homesf"]&homecity=$_GET["homecity"]&livesf=$_GET["livesf"]&livecity=$_GET["livecity"]&page={echo ($page+1)}' title='下一页' >下一页</a></li>
+                    <!--{/if}-->
+                </ul>
+                <div class="clearline"></div>
+                <!--{/if}-->
+            <!--{else}-->
+                <div class="topbottom20"><center>请输入您要查询的用户名或者用户名的一部分或者选择条件查找！</center></div>
+            <!--{/if}-->
+        </div>
+        <script type="text/javascript">
+            $('#gender').val("$_GET['gender']");
+            $('#homesf').val("$_GET['homesf']");
+            changehomecity();
+            $('#homecity').val("$_GET['homecity']");
+            $('#livesf').val("$_GET['livesf']");
+            changelivecity();
+            $('#livecity').val("$_GET['livecity']");
+        </script>
+        <!--{else}-->
+        <h3>邀请好友</h3>
+        <form action="{$webaddr}/op/finder&oc=invite" method="post">
+              <b>收信人：</b><span class="zizi4">(多个Email用逗号&quot;,&quot;分隔)</span><br />
+              <p><textarea name="email" id="email" class="inviteareatextemail"></textarea></p>
+              <b>发信人：</b>{$my[nickname]}
+              <p><b>主题：</b>{$my[nickname]}邀请您加入贫嘴</p>
+              <p>
+              您好！<br/>
+              <textarea name="textarea" id="textarea" class="inviteareatextmsg">      我在贫嘴网站上更新了很多消息，看快来看看吧！如果你还没有注册，快来注册成为贫嘴的用户吧，让我们一起随时随地分享生活工作的心情点滴！</textarea>
+              </p>
+              <p>记得来看看我的空间：<a href="{$webaddr}/{$my[user_name]}">{$webaddr}/{$my[user_name]}</a></p>
+              贫嘴,是一个迷你博客，您可以：<br />
+              ——随时随地发布消息，分享您的心情<br />
+              ——时时刻刻关注朋友的生活<br />
+              ——通过手机、网页、MSN、QQ、Gtalk更多......<br />
+              <div align="right">你的好友 {$my[nickname]}</div>
+              <center>
+              <input name="action" value="invite" type="hidden">
+              <input type="submit" class="formbutton" value="发送邀请" />
+              </center>
+        </form>
+        </div>
+        <!--{/if}-->
+    </div>
+</div>
+</div>
+{template "foot.htm"}

@@ -1,0 +1,115 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<!--{if ($act=='adduser')}-->
+<div class="title"><h3>添加新用户</h3></div>
+<form method="post" action="useradmin.php">
+    <table border="0" width="100%">
+        <tr height="30px">
+            <td width="80" align="right">用户账户：</td>
+            <td><input type="text" name="add_uname" value="" style="ime-mode:disabled" onpaste="return false;"/><span class="gray">只能使用字母或数字的组合，大于4个字符小于20个字符</span></td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right">用户昵称：</td>
+            <td><input type="text" name="add_nickname" value=""/><span class="gray">大于4个字符(2个汉字)小于20个字符(10个汉字)</span></td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right">用户密码：</td>
+            <td><input name="add_pass" type="text" style="ime-mode:disabled" onpaste="return false;"/><span class="gray">6-20位数字或字母组合</span></td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right">用户邮箱：</td>
+            <td><input name="add_email" type="text" value="" /></td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right" valign="top">用户组：</td>
+            <td>
+            <p></font><input type="radio" name="add_admin" id="add_admin1" value="1"><label for="add_admin1">&nbsp;管理员<span class="gray">(所有权限)</span></label><p>
+            <p><input type="radio" name="add_admin" id="add_admin2" value="2"><label for="add_admin2">&nbsp;审核员<span class="gray">(前台审核)</span></label><p>
+            <p><input type="radio" name="add_admin" id="add_admin3" value="0" checked><label for="add_admin3">&nbsp;普通会员</label><p>
+            </td>
+        </tr>
+        <tr height="30px">
+            <td>&nbsp;</td>
+            <td><input type="hidden" name="action" value="adduser" /><input type="submit" value="保存设置"/>
+            <input type="button" onclick="location.href='useradmin.php'" value="返回查询" /></td>
+        </tr>
+    </table>
+</form>
+<!--{else}-->
+<!--{if (!$user[user_id])}-->
+<div class="title"><h3>会员管理</h3></div>
+<form method="get" action="useradmin.php">
+    <table border="0" width="100%">
+        <tr height="35px">
+            <td width="80" align="right">会员名称：</td>
+            <td><input name="u_name" type="text"/></td>
+        </tr>
+        <tr height="35px">
+            <td align="right">会员I D：</td>
+            <td><input name="u_id" type="text"/></td>
+        </tr>
+        <tr height="35px">
+            <td>&nbsp;</td>
+            <td><font color="#8e8e8e">请任意选择一种方式进行搜索！</font></td>
+        </tr>
+        <tr height="35px">
+            <td>&nbsp;</td>
+            <td><input type="hidden" name="act" value="search" /><input type="submit" value="查询会员" />
+            <input type="button" onclick="location.href='useradmin.php?act=adduser'" value="添加会员" />
+            </td>
+        </tr>
+    </table>
+</form>
+<!--{else}-->
+<div class="title"><h3>编辑用户资料</h3></div>
+<form method="post" action="useradmin.php">
+    <table border="0" width="100%">
+        <tr height="30px">
+            <td width="80" align="right">用户ID：</td>
+            <td>{$user[user_id]}</td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right">用户账号：</td>
+            <td>{$user[user_name]}</td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right">用户昵称：</td>
+            <td><input type="text" name="edit_nickname" value="{$user[nickname]}"/></td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right">用户密码：</td>
+            <td><input name="edit_pass" type="text"/><span class="gray">**不修改请留空</span></td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right">用户邮箱：</td>
+            <td><input name="edit_email" type="text" value="{$user[mailadres]}" /></td>
+        </tr>
+        <tr height="30px">
+            <td width="80" align="right">用户组：</td>
+            <td>
+            <input type="radio" name="edit_admin" id="admin1" value="1" <!--{if ($user[isadmin]==1)}-->checked<!--{/if}-->><label for="admin1">&nbsp;管理员&nbsp;</label>
+            <input type="radio" name="edit_admin" id="admin2" value="2" <!--{if ($user[isadmin]==2)}-->checked<!--{/if}-->><label for="admin2">&nbsp;审核员&nbsp;</label>
+            <input type="radio" name="edit_admin" id="admin3" value="0" <!--{if ($user[isadmin]==0)}-->checked<!--{/if}-->>
+            <label for="admin3">&nbsp;普通会员</label></td>
+        </tr>
+        <tr height="30px">
+            <td align="right">关闭此用户：</td>
+            <td>
+            <input type="radio" name="edit_close" id="close1" value="1" <!--{if ($user[userlock]==1)}-->checked<!--{/if}-->><label for="close1">&nbsp;是&nbsp;</label>
+            <input type="radio" name="edit_close" id="close2" value="0" <!--{if ($user[userlock]==0)}-->checked<!--{/if}-->><label for="close2">&nbsp;否</label>
+            </td>
+        </tr>
+        <tr height="30px">
+            <td>&nbsp;</td>
+            <td><input type="hidden" name="edit_id" value="{$user[user_id]}"/><input type="hidden" name="action" value="user_edit"/><input type="submit" value="保存设置"/> or <a href="useradmin.php">重新搜索</a></td>
+        </tr>
+    </table>
+</form>
+<!--{/if}-->
+<!--{/if}-->
+</div>
+</div>
+</div>
+{template "foot.htm"}

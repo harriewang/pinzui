@@ -1,0 +1,17 @@
+{template "header.htm"}
+<div class="web">
+    <!--{if ($_GET['act']=='close')}-->
+    <img src="{$webaddr}/images/default/dialog_msgtype_ico_4.gif">&nbsp;&nbsp;<font color="green" size="3"><b>您好，管理员暂时关闭了网站，请稍等再来，谢谢您的支持！</b></font>
+    <!--{elseif ($_GET['act']=='closeuser')}-->
+    <img src="{$webaddr}/images/default/dialog_msgtype_ico_4.gif">&nbsp;&nbsp;<font color="green" size="3"><b>你访问的用户被管理员屏蔽，点击<a href="$webaddr/index">返回主页</a>！</b></font>
+    <!--{elseif ($_GET['act']=='none')}-->
+    <img src="{$webaddr}/images/default/dialog_msgtype_ico_5.gif">&nbsp;&nbsp;<font color="green" size="3"><b>你访问的用户微博不存在，点击<a href="$webaddr/index">返回主页</a>！</b></font>
+    <!--{elseif ($_GET['act']=='userclose')}-->
+    <img src="{$webaddr}/images/default/dialog_msgtype_ico_3.gif">&nbsp;&nbsp;<font color="green" size="3"><b>你正在访问的微博已经被微博主人关闭了，点击<a href="$webaddr/index">返回主页</a>！</b></font>
+    <!--{elseif ($_GET['act']=='closereg')}-->
+    <img src="{$webaddr}/images/default/lock.gif">&nbsp;&nbsp;<font color="green" size="3"><b>很抱歉，管理员关闭了在线注册，点击<a href="$webaddr/index">返回主页</a>！</b></font>
+    <!--{elseif ($_GET['act']=='404')}-->
+    <img src="{$webaddr}/images/default/dialog_msgtype_ico_2.gif">&nbsp;&nbsp;<font color="green" size="3"><b>对不起，您访问的页面不存在，请检查您的地址是否正确，点击<a href="$webaddr/index">返回主页</a>！</b></font>
+    <!--{/if}-->
+</div>
+{template "foot.htm"}

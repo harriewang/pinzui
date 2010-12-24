@@ -1,0 +1,21 @@
+{template "header.htm"}
+<div class="mainarea">
+<div class="maininner">
+<div class="bdrcontent">
+<div class="title"><h3>数据还原</h3></div>
+<form action="restore.php" method="post" enctype="multipart/form-data">
+    <table width="100%" border="0">
+    <tr><td width="17%" height="25"><input type="radio" name="restorefrom" value="server" checked> 从服务器文件恢复</td>
+		<td width="41%" height="25"><select name="serverfile"><option value="">-请选择-</option>$t</select></td>
+		<td width="41%" rowspan="4" valign="top">$show</td></tr>
+    <tr><td height="22"><input type="radio" name="restorefrom" value="localpc"> 从本地文件恢复</td>
+    <td height="22"><input type="hidden" name="MAX_FILE_SIZE" value="1500000"><input type="file" name="myfile"></td></tr>
+    <tr height="50px"><td align="center" height="23"> 　</td><td height="23"><input type="hidden" name="action" value="restore"><input type="submit" value="恢 复"></td></tr>
+    <tr><td colspan="2" align="center"> 　</td>  </tr>
+    </table>
+</form>
+</div>
+<br />
+</div>
+</div>
+{template "foot.htm"}

@@ -1,0 +1,92 @@
+{template "header.htm"}
+<script type="text/javascript" src="{$webaddr}/include/javascript/followpreview.js"></script>
+<table id="columns">
+<tr>
+<td colspan="2">
+    <div style="background:#e6f8fa;padding:10px 10px 20px 10px">
+    <img src="{$webaddr}/images/default/indexdr.png">
+    <ul class="imgList" id="imgList">
+        <!--{loop $indextop $key $val}-->
+        <li><a href="{$webaddr}/$val[user_name]"><img src="$val[user_head]" width="88" height="88" /></a><p class="pbg"><a href="{$webaddr}/$val[user_name]" style="color:#ffffff">$val[nickname]</a></p></li>
+        <!--{/loop}-->
+    </ul>
+    </div>
+</td>
+</tr>
+<tr>
+<td id="main">
+    <div id="content">
+        <div id="stream" class="message">
+        <div style="border-bottom:2px solid #e3eaec">
+        <div style="float:left"><img src="{$webaddr}/images/default/indexsay.png"></div>
+        <div style="float:right"><label for="autoupdateindex"><input type="checkbox" id="autoupdateindex" value="on" <!--{if ($autoUpdate==1)}-->checked<!--{/if}-->> <span id="updatetime">30</span>秒自动刷新</label><!--{if ($autoUpdate==1)}--><script type="text/javascript">indexup();</script><!--{/if}--></div>
+        <div class="clearline"></div>
+        </div>
+        <ol class="wa" id="indexcont"></ol>				
+        </div>
+        <div id="indexpage" onclick="loadindexajax()">显示更多</div>
+    </div>
+</td>
+<td id="sidebar">
+	<!--{if (!$my[user_id])}-->
+        <div class="sect first-sect">
+            <h2>登录</h2>
+            <form method="post" action="{$webaddr}/op/login" id="login">
+            <p>
+                <label class="label_input" for="loginname">用户名或Email地址</label>
+                <input tabindex="1" type="text" id="loginname" name="loginname" class="input_text" value="" />
+            </p>
+            <p>
+                <label class="label_input" for="password">登录密码：</label>
+                <input tabindex="2" type="password" id="password" name="password" class="input_text" value="" maxlength="20" />
+            </p>
+            <p>
+                <label class="label_check" for="rememberMe">
+                <input tabindex="3" type="checkbox" name="rememberMe" id="rememberMe" value="on" />&nbsp;&nbsp;下次自动登录
+                </label>
+            </p>
+            <p class="act">
+                <a href="op/reset" id="forgot">忘记密码了？</a>
+                <input type="hidden" name="action" value="login" />
+                <input tabindex="4" type="submit" class="formbutton" value="登录" />
+            </p>
+            </form>
+        </div>
+        <div class="sect">
+    <!--{/if}-->
+    <!--{if ($p3)}--><div class="ads3"><!--{loop $p3 $key $val}--><div style="margin-bottom:5px">{echo base64_decode($val)}</div><!--{/loop}--></div><!--{/if}-->
+    <div class="sect first-sect">
+        <h2>公 告</h2>
+        <ul class="tlist">{$announce}</ul>
+    </div>
+    <div class="sect">
+        <h2>看谁在线</h2>			
+        <ul class="alist">
+        <!--{loop $online $key $val}-->
+            <li><a href="$webaddr/{$val[user_name]}"><img id="fu{$val[user_id]}" class="followpreview" alt="$val[nickname]" src="{$val[user_head]}"/><span>$val[nickname]</span></a></li>
+        <!--{/loop}-->
+        </ul>
+    </div>
+    <div class="sect">
+        <h2>推荐用户</h2>			
+        <ul class="alist">{$tuijian}</ul>
+    </div>
+    <div class="sect">
+        <h2>微博新人</h2>			
+        <ul class="alist">{$newcome}</ul>
+    </div>
+    <div class="sect">
+        <h2>十大热评</h2>			
+        <ul class="tlist">{$hotmsg}</ul>
+    </div>
+    <div class="sect">
+        <a href="$webaddr/keywords" style="float:right">更多话题>></a>
+        <h2>热门话题</h2>
+        <ul class="tlist">{$topics}</ul>
+    </div>
+    <!--{if ($p4)}--><div class="ads4"><!--{loop $p4 $key $val}--><div style="margin-top:5px">{echo base64_decode($val)}</div><!--{/loop}--></div><!--{/if}-->
+</td>
+</tr>
+</table>
+<script type="text/javascript">loadindexajax();</script>
+{template "foot.htm"}

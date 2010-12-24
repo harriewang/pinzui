@@ -1,0 +1,30 @@
+{template "header.htm"}
+<table id="columns">
+<tr>
+<td id="main">
+    <h2>绑定IM</h2>
+    <div class="badgebox">
+    当前QQ机器人插件不可用，需要开启请联系QQ：290615101购买，如不使用，请到后台关闭改功能。<br/>
+    </div>   
+</td>
+<td id="sidebar">
+    <h2>--设置中心菜单--</h2>
+    <div class="stabs">
+	<ul>
+		<li><a href="{$webaddr}/op/setting">基本信息设置</a></li>
+		<li><a href="{$webaddr}/op/account">修改密码</a></li>
+        <li><a href="{$webaddr}/op/mailauth">邮箱验证</a></li>
+        <!--{if ($bindmobile==0)}-->
+        <li><a href="{$webaddr}/op/bindmobile">绑定手机</a></li>
+        <!--{/if}-->
+        <!--{if ($openqq==0)}-->
+        <li class="current"><a href="{$webaddr}/op/im">绑定IM</a></li>
+		<!--{/if}-->
+        <li><a href="{$webaddr}/op/theme">模板</a></li>
+        <li><a href="{$webaddr}/op/share">分享链接</a></li>
+	</ul>
+    </div>
+</td>
+</tr>
+</table>
+{template "foot.htm"}

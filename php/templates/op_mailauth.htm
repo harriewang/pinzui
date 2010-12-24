@@ -1,0 +1,56 @@
+{template "header.htm"}
+<table id="columns">
+<tr>
+<td id="main">
+    <h2>邮箱验证</h2>
+    <div class="mailauthbox">
+    <form method="post" action="{$webaddr}/op/mailauth">
+        <p>
+        <!--{if ($my[auth_email]==0)}-->
+            你的 Email 还未通过验证，请到
+            <strong>{$my[mailadres]}</strong>
+            查收验证信，并点击其中的链接完成验证； 如果没有收到，可以重发验证信。
+                <input name="action" value="auth" type="hidden">
+                <input type="submit" class="formbutton" value="邮箱认证" />
+        <!--{else}-->
+            你的 Email 已经通过认证
+        <!--{/if}-->
+        </p>
+    </form>
+    </div>
+    <form method="post" action="{$webaddr}/op/mailauth" class="vf lf">
+        <p>
+            <label class="label_input" for="oldmail">旧 Email </label>
+            <input tabindex="1" type="text" id="oldmail" class="input_text" value="{$my[mailadres]}" disabled="disabled"/>
+        </p>
+        <p>
+            <label class="label_input" for="newmail">新 Email </label>
+            <input tabindex="2" type="text" id="newmail" name="email" class="input_text" />
+        </p>
+        <p class="act">
+            <input name="action" value="edit" type="hidden">
+            <input tabindex="3" type="submit" class="formbutton" value="修改邮箱" />
+        </p>
+    </form>
+</td>
+<td id="sidebar">
+    <h2>--设置中心菜单--</h2>
+    <div class="stabs">
+	<ul>
+		<li><a href="{$webaddr}/op/setting">基本信息设置</a></li>
+		<li><a href="{$webaddr}/op/account">修改密码</a></li>
+        <li class="current"><a href="{$webaddr}/op/mailauth">邮箱验证</a></li>
+        <!--{if ($bindmobile==0)}-->
+        <li><a href="{$webaddr}/op/bindmobile">绑定手机</a></li>
+        <!--{/if}-->
+      <!--{if ($openqq==0)}-->
+        <li><a href="{$webaddr}/op/im">绑定IM</a></li>
+		<!--{/if}-->
+        <li><a href="{$webaddr}/op/theme">模板</a></li>
+        <li><a href="{$webaddr}/op/share">分享链接</a></li>
+	</ul>
+    </div>
+</td>
+</tr>
+</table>
+{template "foot.htm"}

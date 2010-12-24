@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="keywords" content="{$seokey},pinzui.com" />
+<meta name="description" content="{$description}" />
+<title><!--{if ($web_name3)}-->{$web_name3} - <!--{/if}-->{$webn1} - {$webn2}</title>
+<link rel="shortcut icon" href="{$webaddr}/images/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="{$webaddr}/templates/cache/style.css" />
+</head>
+
+<body>
+<div id="container" class="newlook" style="margin-top:50px">
+<div id="header"><h1><a href="{$webaddr}/index"><img src="{$webaddr}/images/default/logo.png?v=1" id="headerlogo" alt="贫嘴"/></a></h1></div>
+<div style="width:100%;height:400px;float:left;background:url($webaddr/images/default/welbg1.png) no-repeat;width:775px;height:400px">
+<div style="float:left;width:450px;margin:250px 0 0 0;text-align:center">
+<a href="$webaddr/op/register"><img src="$webaddr/images/default/button-register.png"></a>
+</div>
+<div style="float:left">
+<form method="post" action="{$webaddr}/op/login" id="login">
+<table border="0" width="100%" style="margin-top:120px">
+	<tr height="60px">
+		<td width="55px" valign="top">帐&nbsp;&nbsp;&nbsp;号：</td>
+		<td valign="top"><input tabindex="1" type="text" name="loginname" class="input_text" value="" style="width:185px"/><br/><font color="#9d9d9d">支持微博帐号/邮箱地址</font></td>
+	</tr>
+	<tr height="60px">
+		<td valign="top">密&nbsp;&nbsp;&nbsp;码：</td>
+		<td valign="top"><input tabindex="2" type="password" name="password" class="input_text" value="" maxlength="20" style="width:185px"/><br/>
+        <label class="label_check" for="rememberMe">
+        <input tabindex="3" type="checkbox" name="rememberMe" id="rememberMe" value="on" />&nbsp;&nbsp;下次自动登录
+        </label>
+        </td>
+	</tr>
+	<tr height="30px">
+		<td>　</td>
+		<td><input type="hidden" name="action" value="login" /><input tabindex="4" type="submit" class="formbutton" value="登录" /></td>
+	</tr>
+</table>
+</form>
+</div>
+</div>
+<div style="clear:both"></div>
+<div style="color:#fff;text-align:center;width:100%;font-size:14px;font-weight:bold;padding-top:20px">
+Copyright © 2009 - 2010 贫嘴. All Rights Reserved
+</div>
+</div>
+<span style="display:none;"><script language="javascript" type="text/javascript" src="http://js.users.51.la/2992516.js"></script>
+<noscript><a href="http://www.51.la/?2992516" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/2992516.asp" style="border:none" /></a></noscript></span>
+</body>
+</html>
